@@ -3,832 +3,1631 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Presentación PRL - Manel & Jose (Electromecánica)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>PRL en Electromecánica de Vehículos | Manel & Jose</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --bg-color: #030712;
-            --card-bg: rgba(15, 23, 42, 0.88);
-            --border-glow: rgba(56, 189, 248, 0.4);
-            --accent-manel: #38bdf8;
-            --accent-jose: #f43f5e;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --manel-cyan: #00f2fe;
+            --manel-blue: #38bdf8;
+            --jose-crimson: #ff0844;
+            --jose-rose: #f43f5e;
+            --hv-orange: #ff6b00;
+            --bg-dark: #050811;
         }
 
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            user-select: none;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--bg-color) 100%);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 24px;
-            overflow-x: hidden;
-        }
-
-        /* Top Bar */
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1050px;
-            width: 100%;
-            margin: 0 auto 20px auto;
-        }
-
-        .speaker-badge {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 700;
-            padding: 10px 22px;
-            border-radius: 99px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            backdrop-filter: blur(12px);
-            transition: all 0.4s ease;
-        }
-
-        .badge-manel {
-            background: rgba(56, 189, 248, 0.15);
-            color: var(--accent-manel);
-            border: 2px solid var(--accent-manel);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
-        }
-
-        .badge-jose {
-            background: rgba(244, 63, 94, 0.15);
-            color: var(--accent-jose);
-            border: 2px solid var(--accent-jose);
-            box-shadow: 0 0 20px rgba(244, 63, 94, 0.2);
-        }
-
-        .slide-counter {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 8px 18px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        /* Slide Container */
-        .presentation-container {
-            max-width: 1050px;
-            width: 100%;
-            height: 620px;
-            margin: 0 auto;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px var(--border-glow);
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            background-color: var(--bg-dark);
+            color: #f8fafc;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
             position: relative;
         }
 
+        h1, h2, h3, .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .font-mono-tech {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Cyber-Garage Carbon & Grid Background */
+        .cyber-grid {
+            background-size: 45px 45px;
+            background-image: 
+                linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+        }
+
+        /* Animated Ambient Glowing Orbs */
+        .ambient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(110px);
+            opacity: 0.35;
+            z-index: 0;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+
+        /* Glassmorphism HUD Cards */
+        .hud-stage {
+            background: rgba(10, 15, 29, 0.78);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.85), inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Corner HUD Brackets */
+        .hud-bracket-tl, .hud-bracket-br {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            pointer-events: none;
+            z-index: 20;
+            transition: border-color 0.4s ease;
+        }
+        .hud-bracket-tl {
+            top: 14px;
+            left: 14px;
+            border-top: 3px solid var(--manel-blue);
+            border-left: 3px solid var(--manel-blue);
+        }
+        .hud-bracket-br {
+            bottom: 14px;
+            right: 14px;
+            border-bottom: 3px solid var(--manel-blue);
+            border-right: 3px solid var(--manel-blue);
+        }
+
+        .hud-card {
+            background: linear-gradient(145deg, rgba(20, 29, 49, 0.82) 0%, rgba(11, 17, 30, 0.92) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hud-card-cyan:hover {
+            border-color: rgba(56, 189, 248, 0.6);
+            box-shadow: 0 0 28px rgba(56, 189, 248, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .hud-card-crimson:hover {
+            border-color: rgba(244, 63, 94, 0.6);
+            box-shadow: 0 0 28px rgba(244, 63, 94, 0.2);
+            transform: translateY(-3px);
+        }
+
+        /* Slide Animations */
         .slide {
             display: none;
-            flex-direction: column;
             height: 100%;
-            animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 100%;
+            animation: slideEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .slide.active {
             display: flex;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(14px) scale(0.98); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        /* Typography */
-        .slide-header {
-            margin-bottom: 20px;
-        }
-
-        .slide-tag {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 700;
-            color: var(--accent-manel);
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #f8fafc 40%, #94a3b8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .slide-body {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: var(--text-muted);
-            flex-grow: 1;
-            display: flex;
             flex-direction: column;
-            justify-content: center;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .card-box {
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.75) 0%, rgba(15, 23, 42, 0.92) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 24px;
-            border-radius: 18px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
-            transition: transform 0.3s ease;
-        }
-
-        .card-box:hover {
-            border-color: rgba(56, 189, 248, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .card-box h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            color: var(--text-main);
-            margin-bottom: 10px;
-            font-size: 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* SVG Icon styling */
-        .icon-svg {
-            width: 24px;
-            height: 24px;
-            vertical-align: middle;
-            display: inline-block;
-            flex-shrink: 0;
-        }
-
-        .icon-svg-lg {
-            width: 28px;
-            height: 28px;
-            vertical-align: middle;
-            display: inline-block;
-            flex-shrink: 0;
-        }
-
-        /* Images */
-        .slide-img {
-            width: 100%;
-            max-height: 230px;
-            object-fit: cover;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-        }
-
-        /* Quiz Styles */
-        .quiz-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .quiz-question {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.15rem;
-            color: var(--text-main);
-            font-weight: 600;
-            line-height: 1.35;
-        }
-
-        .quiz-options {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 8px;
-        }
-
-        .quiz-btn {
-            background: rgba(15, 23, 42, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: var(--text-main);
-            padding: 12px 16px;
-            border-radius: 14px;
-            cursor: pointer;
-            text-align: left;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        .quiz-btn:hover:not(:disabled) {
-            border-color: var(--accent-manel);
-            background: rgba(56, 189, 248, 0.15);
-            transform: translateX(6px);
-        }
-
-        .quiz-btn.correct {
-            background: rgba(34, 197, 94, 0.25) !important;
-            border-color: #22c55e !important;
-            color: #bbf7d0 !important;
-        }
-
-        .quiz-btn.incorrect {
-            background: rgba(239, 68, 68, 0.25) !important;
-            border-color: #ef4444 !important;
-            color: #fecaca !important;
-        }
-
-        .quiz-feedback {
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-top: 4px;
-            min-height: 22px;
-        }
-
-        /* Navigation */
-        .nav-controls {
-            max-width: 1050px;
-            width: 100%;
-            margin: 20px auto 0 auto;
-            display: flex;
             justify-content: space-between;
-            align-items: center;
         }
 
-        .nav-btn {
-            font-family: 'Space Grotesk', sans-serif;
-            background: rgba(30, 41, 59, 0.9);
-            color: var(--text-main);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 14px 30px;
-            border-radius: 16px;
-            font-weight: 700;
-            cursor: pointer;
+        @keyframes slideEnter {
+            0% {
+                opacity: 0;
+                transform: translateY(16px) scale(0.985);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Rotating Gear Animation */
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .spin-slow {
+            animation: spinSlow 18s linear infinite;
+        }
+
+        /* High Voltage Pulse */
+        @keyframes pulseGlow {
+            0%, 100% { filter: drop-shadow(0 0 6px rgba(244, 63, 94, 0.8)); }
+            50% { filter: drop-shadow(0 0 16px rgba(255, 107, 0, 1)); }
+        }
+        .hv-pulse {
+            animation: pulseGlow 2s infinite;
+        }
+
+        /* Quiz Option Buttons */
+        .quiz-option {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.14);
             transition: all 0.25s ease;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+        }
+        .quiz-option:hover:not(:disabled) {
+            background: rgba(30, 41, 59, 0.95);
+            border-color: #38bdf8;
+            transform: translateX(6px);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+        }
+        .quiz-option.correct {
+            background: linear-gradient(90deg, rgba(6, 95, 70, 0.65) 0%, rgba(16, 185, 129, 0.25) 100%) !important;
+            border-color: #10b981 !important;
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.35) !important;
+        }
+        .quiz-option.incorrect {
+            background: linear-gradient(90deg, rgba(127, 29, 29, 0.65) 0%, rgba(239, 68, 68, 0.2) 100%) !important;
+            border-color: #ef4444 !important;
+            opacity: 0.75;
         }
 
-        .nav-btn:hover:not(:disabled) {
-            background: rgba(56, 189, 248, 0.25);
-            border-color: var(--accent-manel);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
-        }
-
-        .nav-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        .hint-text {
-            color: var(--text-muted);
-            font-size: 0.92rem;
-            letter-spacing: 0.5px;
+        /* Teleprompter Bar */
+        #teleprompterDrawer {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
     </style>
 </head>
-<body>
+<body class="cyber-grid flex flex-col justify-between p-3 sm:p-5 md:p-6">
 
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div id="speakerBadge" class="speaker-badge badge-manel">Ponente: Manel Gran Lafuente</div>
-        <div id="slideCounter" class="slide-counter">Diapositiva 1 de 17</div>
+    <!-- Animated Ambient Glowing Orbs -->
+    <div id="orb1" class="ambient-orb w-96 h-96 bg-sky-500 -top-20 -left-20"></div>
+    <div id="orb2" class="ambient-orb w-[28rem] h-[28rem] bg-rose-600 -bottom-28 -right-20"></div>
+
+    <!-- Top Progress Line -->
+    <div class="fixed top-0 left-0 w-full h-1.5 bg-slate-900/90 z-50">
+        <div id="progressBar" class="h-full bg-gradient-to-r from-sky-400 via-cyan-300 to-rose-500 transition-all duration-300 shadow-[0_0_12px_#38bdf8]" style="width: 5.88%;"></div>
     </div>
 
-    <!-- Presentation Container -->
-    <div class="presentation-container">
-
-        <!-- Slide 1: Portada -->
-        <div class="slide active" data-speaker="manel">
-            <div class="slide-header">
-                <span class="slide-tag">
-                    <svg class="icon-svg" fill="none" stroke="#38bdf8" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
-                    Electromecánica & Prevención
-                </span>
-                <h2>Prevención de Riesgos Laborales en el Taller ⚙️</h2>
+    <!-- TOP HUD TELEMETRY BAR -->
+    <header class="relative z-20 max-w-7xl w-full mx-auto flex flex-wrap items-center justify-between gap-3 mb-3 px-1">
+        <!-- Left: System Brand & Active Speaker Badge -->
+        <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-700/80 px-3.5 py-2 rounded-xl shadow-lg">
+                <!-- Colored SVG Gear Icon -->
+                <svg class="w-5 h-5 spin-slow" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#38bdf8" stroke-width="2"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="#38bdf8" stroke-width="2"/>
+                </svg>
+                <span class="font-mono-tech text-xs tracking-widest uppercase text-slate-300 font-bold hidden sm:inline">OBD-II // PRL-SYS</span>
             </div>
-            <div class="slide-body">
-                <div class="grid-2">
+
+            <!-- Dynamic Speaker Pill -->
+            <div id="speakerBadge" class="flex items-center gap-2.5 px-4 py-2 rounded-full font-display text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 border-2 bg-sky-500/15 border-sky-400 text-sky-300 shadow-[0_0_20px_rgba(56,189,248,0.25)]">
+                <span id="speakerDot" class="w-2.5 h-2.5 rounded-full bg-sky-400 animate-ping"></span>
+                <span id="speakerName">PONENTES: MANEL & JOSE</span>
+            </div>
+        </div>
+
+        <!-- Right: Live Quiz Score & Slide Counter -->
+        <div class="flex items-center gap-3">
+            <!-- Quiz Score Telemetry -->
+            <div class="flex items-center gap-2 bg-slate-900/90 border border-emerald-500/40 px-3.5 py-2 rounded-xl shadow-lg">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#10b981" stroke="#34d399" stroke-width="1.5"/>
+                </svg>
+                <span class="font-mono-tech text-xs text-slate-400">TEST SCORE:</span>
+                <span id="scoreCounter" class="font-mono-tech text-sm font-bold text-emerald-400">0 / 8</span>
+            </div>
+
+            <!-- Slide Counter -->
+            <div class="bg-slate-900/90 border border-slate-700/80 px-4 py-2 rounded-xl font-mono-tech text-xs sm:text-sm font-bold text-slate-200">
+                SLIDE <span id="slideNum" class="text-sky-400">01</span> <span class="text-slate-500">/ 17</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN SLIDE STAGE -->
+    <main id="mainStage" class="hud-stage max-w-7xl w-full flex-grow mx-auto rounded-3xl p-6 sm:p-10 md:p-12 z-10 flex flex-col justify-between">
+        <!-- Corner Brackets -->
+        <div id="bracketTL" class="hud-bracket-tl"></div>
+        <div id="bracketBR" class="hud-bracket-br"></div>
+
+        <!-- ==========================================
+             SLIDE 1: PORTADA (MANEL & JOSE)
+        =========================================== -->
+        <section class="slide active" data-speaker="shared" data-speaker-label="Ponentes: Manel Gran & Jose Ferrández">
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
+                <div class="flex items-center gap-2.5">
+                    <span class="px-3 py-1 rounded-md bg-sky-500/20 border border-sky-400/40 font-mono-tech text-xs text-sky-300 font-bold">GRADO MEDIO // ELECTROMECÁNICA</span>
+                    <span class="px-3 py-1 rounded-md bg-rose-500/20 border border-rose-400/40 font-mono-tech text-xs text-rose-300 font-bold">SEGURIDAD EN TALLER</span>
+                </div>
+                <span class="font-mono-tech text-xs text-slate-400 hidden md:inline">RPM: 6500 // TEMP: 90°C // BAT: 400V OK</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-auto py-4">
+                <!-- Left Column: Title & Automotive Telemetry -->
+                <div class="lg:col-span-7 space-y-5">
+                    <div class="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-slate-900/90 border border-slate-700/80">
+                        <!-- Custom Colored SVG Wrench & Lightning -->
+                        <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none">
+                            <path d="M22.6 5.2C19.8 4.4 16.8 5.2 14.8 7.2C13.1 8.9 12.4 11.4 12.9 13.7L5.6 21C4.5 22.1 4.5 23.9 5.6 25L7 26.4C8.1 27.5 9.9 27.5 11 26.4L18.3 19.1C20.6 19.6 23.1 18.9 24.8 17.2C26.8 15.2 27.6 12.2 26.8 9.4L23.2 13L19 12L18 7.8L22.6 5.2Z" fill="#38bdf8" stroke="#bae6fd" stroke-width="1.5"/>
+                            <path d="M24 18L19 25H23L21 30L27 23H23L24 18Z" fill="#f43f5e"/>
+                        </svg>
+                        <span class="text-sm font-semibold text-slate-200 tracking-wide">Mantenimiento de Vehículos Automóviles</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-white">
+                        Prevención de <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-cyan-300 to-rose-500">Riesgos Laborales</span> en el Taller
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+                        Protocolo técnico de seguridad legal, ergonomía de cargas, alta tensión en vehículos híbridos/eléctricos (LOTO) y control de agentes químicos.
+                    </p>
+
+                    <!-- Telemetry Gauges Row -->
+                    <div class="grid grid-cols-3 gap-3 pt-2 max-w-xl">
+                        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex items-center gap-3">
+                            <svg class="w-8 h-8 flex-shrink-0" viewBox="0 0 36 36" fill="none">
+                                <circle cx="18" cy="18" r="15" stroke="#1e293b" stroke-width="4"/>
+                                <circle cx="18" cy="18" r="15" stroke="#38bdf8" stroke-width="4" stroke-dasharray="75 100" stroke-linecap="round"/>
+                                <text x="18" y="21" text-anchor="middle" fill="#f8fafc" font-size="9" font-family="JetBrains Mono" font-weight="bold">LEY</text>
+                            </svg>
+                            <div>
+                                <div class="text-xs text-slate-400 font-mono-tech">NORMATIVA</div>
+                                <div class="text-sm font-bold text-white">31/1995</div>
+                            </div>
+                        </div>
+                        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex items-center gap-3">
+                            <svg class="w-8 h-8 flex-shrink-0" viewBox="0 0 36 36" fill="none">
+                                <circle cx="18" cy="18" r="15" stroke="#1e293b" stroke-width="4"/>
+                                <circle cx="18" cy="18" r="15" stroke="#f59e0b" stroke-width="4" stroke-dasharray="65 100" stroke-linecap="round"/>
+                                <text x="18" y="21" text-anchor="middle" fill="#f8fafc" font-size="9" font-family="JetBrains Mono" font-weight="bold">MAX</text>
+                            </svg>
+                            <div>
+                                <div class="text-xs text-slate-400 font-mono-tech">ERGONOMÍA</div>
+                                <div class="text-sm font-bold text-amber-400">25 KG</div>
+                            </div>
+                        </div>
+                        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex items-center gap-3">
+                            <svg class="w-8 h-8 flex-shrink-0" viewBox="0 0 36 36" fill="none">
+                                <circle cx="18" cy="18" r="15" stroke="#1e293b" stroke-width="4"/>
+                                <circle cx="18" cy="18" r="15" stroke="#f43f5e" stroke-width="4" stroke-dasharray="85 100" stroke-linecap="round"/>
+                                <text x="18" y="21" text-anchor="middle" fill="#f8fafc" font-size="9" font-family="JetBrains Mono" font-weight="bold">HV</text>
+                            </svg>
+                            <div>
+                                <div class="text-xs text-slate-400 font-mono-tech">EV / HÍBRIDO</div>
+                                <div class="text-sm font-bold text-rose-400">800V DC</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Speaker Cards -->
+                <div class="lg:col-span-5 space-y-4">
+                    <!-- Manel Card -->
+                    <div class="hud-card hud-card-cyan rounded-2xl p-5 border-l-4 border-l-sky-400 relative overflow-hidden">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="font-mono-tech text-xs uppercase tracking-widest text-sky-400 font-bold">BLOQUE 01 // DIAPOSITIVAS 1-9</span>
+                                <h3 class="text-2xl font-bold text-white mt-1">Manel Gran Lafuente</h3>
+                                <p class="text-sm text-slate-300 mt-1">Marco Legal • Riesgos Psicosociales • Cargas y Test 1</p>
+                            </div>
+                            <!-- Custom Colored Piston / Wrench SVG -->
+                            <div class="w-14 h-14 rounded-2xl bg-sky-500/15 border border-sky-400/30 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none">
+                                    <rect x="6" y="3" width="12" height="8" rx="2" fill="#0284c7" stroke="#38bdf8" stroke-width="1.8"/>
+                                    <circle cx="9" cy="7" r="1.2" fill="#e0f2fe"/>
+                                    <circle cx="15" cy="7" r="1.2" fill="#e0f2fe"/>
+                                    <path d="M10 11V17M14 11V17" stroke="#7dd3fc" stroke-width="2" stroke-linecap="round"/>
+                                    <circle cx="12" cy="19" r="3" fill="#0369a1" stroke="#38bdf8" stroke-width="1.8"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Jose Card -->
+                    <div class="hud-card hud-card-crimson rounded-2xl p-5 border-l-4 border-l-rose-500 relative overflow-hidden">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="font-mono-tech text-xs uppercase tracking-widest text-rose-400 font-bold">BLOQUE 02 // DIAPOSITIVAS 10-17</span>
+                                <h3 class="text-2xl font-bold text-white mt-1">Jose Ferrández Moya</h3>
+                                <p class="text-sm text-slate-300 mt-1">Alta Tensión EV • 5 Reglas de Oro LOTO • Inhalación y Test 2</p>
+                            </div>
+                            <!-- Custom Colored High Voltage Battery SVG -->
+                            <div class="w-14 h-14 rounded-2xl bg-rose-500/15 border border-rose-400/30 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-8 h-8 hv-pulse" viewBox="0 0 24 24" fill="none">
+                                    <rect x="2" y="6" width="20" height="14" rx="2.5" fill="#881337" stroke="#f43f5e" stroke-width="1.8"/>
+                                    <path d="M6 6V4H9V6M15 6V4H18V6" stroke="#fda4af" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M13 9L9.5 13.5H12.5L11 17.5L15 12.5H12L13 9Z" fill="#fbbf24" stroke="#fef08a" stroke-width="0.6"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between text-xs font-mono-tech text-slate-400 border-t border-slate-800/80 pt-3">
+                <span>STATUS: SISTEMA DE DIAGNÓSTICO PREVENTIVO ACTIVO</span>
+                <span>PULSA [ESPACIO] O [→] PARA INICIAR</span>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 2: ÍNDICE GENERAL (TURNO JOSE)
+        =========================================== -->
+        <section class="slide" data-speaker="jose" data-speaker-label="Ponente: Jose Ferrández Moya">
+            <div>
+                <span class="font-mono-tech text-xs uppercase tracking-widest text-rose-400 font-bold flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-rose-500"></span> HOJA DE RUTA // EXPLICA: JOSE FERRÁNDEZ
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mt-1">Índice General de la Exposición</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto py-4">
+                <!-- Bloque 1 Column -->
+                <div class="hud-card hud-card-cyan rounded-2xl p-6 border-t-4 border-t-sky-400 flex flex-col justify-between">
                     <div>
-                        <p style="font-size: 1.15rem; margin-bottom: 16px;">Guía técnica y normativa orientada a la seguridad y salud en el mantenimiento de vehículos automóviles.</p>
-                        <p style="color: var(--accent-manel); font-weight: 600; font-size: 1.05rem;">🛠️ Expositores: Manel Gran Lafuente & Jose Ferrández Moya</p>
-                    </div>
-                    <div class="card-box">
-                        <h3>
-                            <svg class="icon-svg" fill="none" stroke="#38bdf8" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m-6 9l2 2 4-4"></path></svg>
-                            Estructura del Proyecto
-                        </h3>
-                        <p>• Parte 1 (Manel): Marco legal, riesgos psicosociales, cargas y 1º Test.</p>
-                        <p style="margin-top: 8px;">• Parte 2 (Jose): Electricidad, reglas de oro, inhalación, 2º Test y Cierre.</p>
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-sky-500/20 border border-sky-400/40 flex items-center justify-center">
+                                    <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none">
+                                        <path d="M12 2L4 5V11.09C4 16.14 7.41 20.85 12 22C16.59 20.85 20 16.14 20 11.09V5L12 2Z" fill="#0369a1" stroke="#38bdf8" stroke-width="1.8"/>
+                                        <path d="M9 12L11 14L15 10" stroke="#e0f2fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span class="font-mono-tech text-xs text-sky-400 font-bold">PARTE 01 // DIAP. 3–9</span>
+                                    <h3 class="text-2xl font-bold text-white">Bloque Manel Gran</h3>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-sky-500/20 text-sky-300 font-mono-tech text-xs font-bold">8 MIN</span>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl flex items-center gap-3.5">
+                                <span class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-300 font-mono-tech font-bold flex items-center justify-center text-sm">01</span>
+                                <div>
+                                    <div class="text-white font-semibold text-sm sm:text-base">Marco Legal y Ley 31/1995</div>
+                                    <div class="text-slate-400 text-xs">Directiva europea, responsabilidades y evaluación en taller</div>
+                                </div>
+                            </div>
+                            <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl flex items-center gap-3.5">
+                                <span class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-300 font-mono-tech font-bold flex items-center justify-center text-sm">02</span>
+                                <div>
+                                    <div class="text-white font-semibold text-sm sm:text-base">Riesgos Psicosociales y Burnout</div>
+                                    <div class="text-slate-400 text-xs">Presión por tiempos de reparación y fatiga diagnóstica</div>
+                                </div>
+                            </div>
+                            <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl flex items-center gap-3.5">
+                                <span class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-300 font-mono-tech font-bold flex items-center justify-center text-sm">03</span>
+                                <div>
+                                    <div class="text-white font-semibold text-sm sm:text-base">Manipulación Manual de Cargas</div>
+                                    <div class="text-slate-400 text-xs">Biomecánica lumbar (máx. 25 kg), plumas y gatos hidráulicos</div>
+                                </div>
+                            </div>
+                            <div class="bg-sky-500/15 border border-sky-400/40 p-3.5 rounded-xl flex items-center gap-3.5">
+                                <span class="w-8 h-8 rounded-lg bg-sky-400 text-slate-950 font-mono-tech font-bold flex items-center justify-center text-sm">04</span>
+                                <div>
+                                    <div class="text-sky-300 font-bold text-sm sm:text-base">Test Interactivo Bloque 1 (4 Preguntas)</div>
+                                    <div class="text-sky-200/70 text-xs">Comprobación de conocimientos en vivo</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Slide 2: Índice -->
-        <div class="slide" data-speaker="manel">
-            <div class="slide-header">
-                <span class="slide-tag">
-                    <svg class="icon-svg" fill="none" stroke="#38bdf8" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
-                    Contenidos
-                </span>
-                <h2>Índice General de la Exposición 📌</h2>
-            </div>
-            <div class="slide-body">
-                <div class="grid-2">
-                    <div class="card-box" style="border-left: 4px solid var(--accent-manel);">
-                        <h3 style="color: var(--accent-manel);">
-                            <svg class="icon-svg" fill="none" stroke="#38bdf8" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM12 14a7 7 0 0 0-7 7h14a7 7 0 0 0-7-7z"></path></svg>
-                            Bloque 1: Manel Gran
-                        </h3>
-                        <p>1. Marco Legal y Ley 31/1995</p>
-                        <p>2. Riesgos Psicosociales y Burnout</p>
-                        <p>3. Manipulación Manual de Cargas</p>
-                        <p>4. <strong>Test Interactivo Parte 1 (4 Preguntas)</strong></p>
-                    </div>
-                    <div class="card-box" style="border-left: 4px solid var(--accent-jose);">
-                        <h3 style="color: var(--accent-jose);">
-                            <svg class="icon-svg" fill="none" stroke="#f43f5e" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                            Bloque 2: Jose Ferrández
-                        </h3>
-                        <p>5. Riesgo Eléctrico y Tipos de Contacto</p>
-                        <p>6. Las 5 Reglas de Oro en Electricidad</p>
-                        <p>7. Riesgo por Inhalación y EPIs</p>
-                        <p>8. <strong>Test Interactivo Parte 2</strong> y Cierre</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 3: Marco Legal -->
-        <div class="slide" data-speaker="manel">
-            <div class="slide-header">
-                <span class="slide-tag">
-                    <svg class="icon-svg" fill="none" stroke="#38bdf8" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 0 0 6.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l3 9a5.002 5.002 0 0 1-6.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5"></path></svg>
-                    Bloque 1 • Manel
-                </span>
-                <h2>Marco Legal y Objetivos de la PRL 📜</h2>
-            </div>
-            <div class="slide-body">
-                <div class="grid-2">
+                <!-- Bloque 2 Column -->
+                <div class="hud-card hud-card-crimson rounded-2xl p-6 border-t-4 border-t-rose-500 flex flex-col justify-between">
                     <div>
-                        <p style="margin-bottom: 12px;">Fundamentado en la <strong>Ley 31/1995 de Prevención de Riesgos Laborales</strong>, aplicable en cualquier entorno de automoción.</p>
-                        <p style="margin-bottom: 12px;">Establece los derechos y obligaciones del empresario para proteger eficazmente la integridad física y psíquica de los operarios.</p>
-                        <p style="color: var(--accent-manel); font-weight: 600;">🎯 Principio clave: Anticipación frente a cualquier accidente en el foso o elevador.</p>
-                    </div>
-                    <div class="card-box">
-                        <h3>
-                            <svg class="icon-svg" fill="none" stroke="#38bdf8" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0 1 12 2.944a11.955 11.955 0 0 1-8.618 3.04A12.02 12.02 0 0 0 3 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                            Obligación Empresarial
-                        </h3>
-                        <p>Planificar la acción preventiva integrándola en el conjunto de las actividades del taller y en todos sus niveles.</p>
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-rose-500/20 border border-rose-400/40 flex items-center justify-center">
+                                    <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none">
+                                        <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="#e11d48" stroke="#fda4af" stroke-width="1.5" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span class="font-mono-tech text-xs text-rose-400 font-bold">PARTE 02 // DIAP. 10–17</span>
+                                    <h3 class="text-2xl font-bold text-white">Bloque Jose Ferrández</h3>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 font-mono-tech text-xs font-bold">8 MIN</span>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl flex items-center gap-3.5">
+                                <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-300 font-mono-tech font-bold flex items-center justify-center text-sm">05</span>
+                                <div>
+                                    <div class="text-white font-semibold text-sm sm:text-base">Riesgo Eléctrico en Híbridos y EVs</div>
+                                    <div class="text-slate-400 text-xs">Alta tensión (400V–800V DC), contacto directo e indirecto</div>
+                                </div>
+                            </div>
+                            <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl flex items-center gap-3.5">
+                                <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-300 font-mono-tech font-bold flex items-center justify-center text-sm">06</span>
+                                <div>
+                                    <div class="text-white font-semibold text-sm sm:text-base">Las 5 Reglas de Oro y Sistema LOTO</div>
+                                    <div class="text-slate-400 text-xs">Candado personal de bloqueo, ausencia de tensión y puesta a tierra</div>
+                                </div>
+                            </div>
+                            <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl flex items-center gap-3.5">
+                                <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-300 font-mono-tech font-bold flex items-center justify-center text-sm">07</span>
+                                <div>
+                                    <div class="text-white font-semibold text-sm sm:text-base">Inhalación de Químicos y EPIs (COSHH)</div>
+                                    <div class="text-slate-400 text-xs">Monóxido de carbono, extracción localizada y filtros ABEK</div>
+                                </div>
+                            </div>
+                            <div class="bg-rose-500/15 border border-rose-400/40 p-3.5 rounded-xl flex items-center gap-3.5">
+                                <span class="w-8 h-8 rounded-lg bg-rose-500 text-white font-mono-tech font-bold flex items-center justify-center text-sm">08</span>
+                                <div>
+                                    <div class="text-rose-300 font-bold text-sm sm:text-base">Test Interactivo Bloque 2 y Cierre</div>
+                                    <div class="text-rose-200/70 text-xs">Evaluación final de seguridad eléctrica y conclusión</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Slide 4: Riesgos Psicosociales -->
-        <div class="slide" data-speaker="manel">
-            <div class="slide-header">
-                <span class="slide-tag">
-                    <svg class="icon-svg" fill="none" stroke="#38bdf8" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                    Bloque 1 • Manel
-                </span>
-                <h2>Riesgos Psicosociales y Estrés ⚠️</h2>
+            <div class="text-xs font-mono-tech text-slate-400 flex justify-between border-t border-slate-800/80 pt-3">
+                <span>ESTRUCTURA EQUILIBRADA: 50% MANEL / 50% JOSE</span>
+                <span>SIGUIENTE: MARCO LEGAL (MANEL)</span>
             </div>
-            <div class="slide-body">
-                <div class="grid-2">
+        </section>
+
+        <!-- ==========================================
+             SLIDE 3: MARCO LEGAL (TURNO MANEL)
+        =========================================== -->
+        <section class="slide" data-speaker="manel" data-speaker-label="Ponente: Manel Gran Lafuente">
+            <div>
+                <span class="font-mono-tech text-xs uppercase tracking-widest text-sky-400 font-bold flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-sky-400"></span> BLOQUE 01 // EXPLICA: MANEL GRAN
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mt-1">Marco Legal y Objetivos de la PRL</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center my-auto py-4">
+                <!-- Left Big Metric Card -->
+                <div class="lg:col-span-5 hud-card hud-card-cyan rounded-3xl p-7 text-center border-2 border-sky-400/40 relative overflow-hidden">
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-sky-500/20 border border-sky-400/40 flex items-center justify-center mb-4">
+                        <!-- Colored Balance / Shield SVG -->
+                        <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 3V21M5 7L19 7M6 7L3 14H9L6 7ZM18 7L15 14H21L18 7Z" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="12" cy="5" r="2" fill="#f43f5e"/>
+                        </svg>
+                    </div>
+                    <div class="font-mono-tech text-xs uppercase tracking-widest text-sky-300 font-bold">NORMATIVA ESTATAL</div>
+                    <div class="text-5xl sm:text-6xl font-display font-bold text-white my-2 tracking-tight">Ley 31/1995</div>
+                    <p class="text-slate-300 text-sm leading-relaxed mt-2">
+                        Transpone la Directiva Europea 89/391/CEE y obliga al empresario a garantizar la seguridad y salud en todos los puestos del taller.
+                    </p>
+                    <div class="mt-5 pt-4 border-t border-slate-700/70 flex justify-around">
+                        <div>
+                            <div class="text-2xl font-bold text-emerald-400 font-mono-tech">0</div>
+                            <div class="text-[11px] text-slate-400 uppercase font-mono-tech">Accidentes Meta</div>
+                        </div>
+                        <div class="w-px bg-slate-700"></div>
+                        <div>
+                            <div class="text-2xl font-bold text-sky-400 font-mono-tech">100%</div>
+                            <div class="text-[11px] text-slate-400 uppercase font-mono-tech">Puestos Evaluados</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right 3 Technical Pillars -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="hud-card hud-card-cyan rounded-2xl p-5 flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-sky-500/20 border border-sky-400/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <!-- Car Lift SVG -->
+                            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none">
+                                <path d="M4 20V4M20 20V4M4 14H20M7 10H17L18 14H6L7 10Z" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Evaluación Inicial en cada Puesto del Taller</h3>
+                            <p class="text-slate-300 text-sm sm:text-base mt-1">
+                                Obligación de auditar previamente elevadores de columnas, fosos, cabinas de pintura, bancos de prueba y herramientas de corte antes de operar.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="hud-card hud-card-cyan rounded-2xl p-5 flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 9V13M12 17H12.01M10.29 3.86L1.82 18A2 2 0 0 0 3.54 21H20.46A2 2 0 0 0 22.18 18L13.71 3.86A2 2 0 0 0 10.29 3.86Z" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Responsabilidad Administrativa, Civil y Penal</h3>
+                            <p class="text-slate-300 text-sm sm:text-base mt-1">
+                                El incumplimiento de las medidas de seguridad conlleva sanciones económicas severas e incluso responsabilidades penales si se pone en peligro grave al operario.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="hud-card hud-card-cyan rounded-2xl p-5 flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="9" stroke="#34d399" stroke-width="2"/>
+                                <circle cx="12" cy="12" r="4" fill="#10b981"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">De la Reacción a la Anticipación Activa</h3>
+                            <p class="text-slate-300 text-sm sm:text-base mt-1">
+                                No esperamos a que ocurra el accidente en el foso: se planifica la prevención desde el diseño del taller y se entrega formación y EPIs gratuitos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-xs font-mono-tech text-slate-400 flex justify-between border-t border-slate-800/80 pt-3">
+                <span>ART. 14 Y 15 LEY 31/1995: DERECHO A UNA PROTECCIÓN EFICAZ</span>
+                <span>PONENTE: MANEL GRAN</span>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 4: RIESGOS PSICOSOCIALES (MANEL)
+        =========================================== -->
+        <section class="slide" data-speaker="manel" data-speaker-label="Ponente: Manel Gran Lafuente">
+            <div>
+                <span class="font-mono-tech text-xs uppercase tracking-widest text-sky-400 font-bold flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-sky-400"></span> BLOQUE 01 // EXPLICA: MANEL GRAN
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mt-1">Riesgos Psicosociales y Burnout en Automoción</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 my-auto py-4">
+                <!-- Card 1 -->
+                <div class="hud-card hud-card-cyan rounded-2xl p-6 flex flex-col justify-between border-t-4 border-t-sky-400">
                     <div>
-                        <p style="margin-bottom: 10px;">• <strong>Sobrecarga cuantitativa:</strong> Exceso de reparaciones con plazos de entrega muy ajustados.</p>
-                        <p style="margin-bottom: 10px;">• <strong>Falta de autonomía:</strong> Imposibilidad de decidir sobre la organización de tareas en banco de trabajo.</p>
-                        <p>• <strong>Burnout profesional:</strong> Agotamiento mental severo y pérdida de motivación técnica.</p>
-                    </div>
-                    <div class="card-box">
-                        <h3>
-                            <svg class="icon-svg" fill="none" stroke="#38bdf8" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"></path></svg>
-                            Prevención Activa
-                        </h3>
-                        <p>Diseño ergonómico del puesto, canales de comunicación transparentes, apoyo mutuo entre compañeros y rotación de reparaciones.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 5: Manipulación de Cargas -->
-        <div class="slide" data-speaker="manel">
-            <div class="slide-header">
-                <span class="slide-tag">
-                    <svg class="icon-svg" fill="none" stroke="#38bdf8" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
-                    Bloque 1 • Manel
-                </span>
-                <h2>Manipulación Manual de Cargas 🏋️‍♂️</h2>
-            </div>
-            <div class="slide-body">
-                <div class="grid-2">
-                    <div>
-                        <p style="margin-bottom: 10px;">Transporte o sujeción de componentes pesados (motores, baterías, llantas) que entrañan riesgos dorsolumbares.</p>
-                        <p style="color: var(--accent-manel); font-weight: 600;">📐 Regla ergonómica: Flexionar las rodillas, mantener la carga pegada al torso y usar grúas o polipastos.</p>
-                    </div>
-                    <div>
-                        <img src="https://hsiassetstorage.sfo2.digitaloceanspaces.com/assets/images/blog/Safe-Lifting-01.png" alt="Ergonomía levantamiento de cargas" class="slide-img">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 6: Test 1 - Pregunta 1 -->
-        <div class="slide" data-speaker="manel">
-            <div class="slide-header">
-                <span class="slide-tag">
-                    <svg class="icon-svg" fill="none" stroke="#38bdf8" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"></path></svg>
-                    Test Parte 1 (1/4) • Manel
-                </span>
-                <h2>Evaluación Bloque 1: Marco Legal ⚖️</h2>
-            </div>
-            <div class="slide-body">
-                <div class="quiz-container">
-                    <div class="quiz-question">¿Cuál es la finalidad principal de la Ley 31/1995 de Prevención de Riesgos Laborales?</div>
-                    <div class="quiz-options">
-                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. La ley abarca mucho más que meras sanciones económicas.')">A) Imponer multas económicas a las empresas infractoras</button>
-                        <button class="quiz-btn" onclick="checkAnswer(this, true, '¡Correcto! Su fin primordial es promover la seguridad y salud mediante la aplicación de medidas y desarrollo de actividades necesarias para el riesgo.')">B) Promover la seguridad y salud de los trabajadores mediante la aplicación de medidas y el desarrollo de las actividades necesarias para la prevención de riesgos derivados del trabajo</button>
-                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. No regula primariamente los salarios ni convenios.')">C) Establecer las tablas salariales mínimas sectoriales anuales</button>
-                    </div>
-                    <div class="quiz-feedback" id="feedback-6"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 7: Test 1 - Pregunta 2 -->
-        <div class="slide" data-speaker="manel">
-            <div class="slide-header">
-                <span class="slide-tag">
-                    <svg class="icon-svg" fill="none" stroke="#38bdf8" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"></path></svg>
-                    Test Parte 1 (2/4) • Manel
-                </span>
-                <h2>Evaluación Bloque 1: Psicosociales 🧠</h2>
-            </div>
-            <div class="slide-body">
-                <div class="quiz-container">
-                    <div class="quiz-question">¿Qué caracteriza principalmente al síndrome de Burnout en el ámbito laboral?</div>
-                    <div class="quiz-options">
-                        <button class="quiz-btn" onclick="checkAnswer(this, true, '¡Correcto! Se define por un estado de agotamiento mental y físico crónico asociado al entorno profesional.')">A) Un estado de agotamiento físico y mental crónico provocado por una exposición prolongada a estrés laboral intenso</button>
-                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Eso es un daño puramente físico o traumático.')">B) Una lesión muscular puntual producida por un sobreesfuerzo físico aislado</button>
-                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. El burnout no es una enfermedad infecciosa.')">C) Una infección respiratoria derivada de la inhalación de agentes químicos</button>
-                    </div>
-                    <div class="quiz-feedback" id="feedback-7"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 8: Test 1 - Pregunta 3 -->
-        <div class="slide" data-speaker="manel">
-            <div class="slide-header">
-                <span class="slide-tag">
-                    <svg class="icon-svg" fill="none" stroke="#38bdf8" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"></path></svg>
-                    Test Parte 1 (3/4) • Manel
-                </span>
-                <h2>Evaluación Bloque 1: Cargas 📦</h2>
-            </div>
-            <div class="slide-body">
-                <div class="quiz-container">
-                    <div class="quiz-question">¿Cuál es la técnica corporal correcta al levantar manualmente un objeto pesado del suelo?</div>
-                    <div class="quiz-options">
-                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Levantar con la espalda recta sin doblar rodillas lesiona la columna.')">A) Doblar la espalda manteniendo las piernas completamente rígidas y estiradas</button>
-                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. El peso debe sostenerse cerca del cuerpo, no con los brazos estirados.')">B) Mantener los brazos completamente estirados hacia adelante alejados del torso</button>
-                        <button class="quiz-btn" onclick="checkAnswer(this, true, '¡Correcto! Se deben flexionar las rodillas manteniendo la espalda recta y pegando la carga al cuerpo para proteger la zona lumbar.')">C) Flexionar las rodillas manteniendo la espalda recta, apoyando la fuerza en las extremidades inferiores y pegando la carga al torso</button>
-                    </div>
-                    <div class="quiz-feedback" id="feedback-8"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 9: Test 1 - Pregunta 4 -->
-        <div class="slide" data-speaker="manel">
-            <div class="slide-header">
-                <span class="slide-tag">
-                    <svg class="icon-svg" fill="none" stroke="#38bdf8" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"></path></svg>
-                    Test Parte 1 (4/4) • Manel
-                </span>
-                <h2>Evaluación Bloque 1: Planificación 📋</h2>
-            </div>
-            <div class="slide-body">
-                <div class="quiz-container">
-                    <div class="quiz-question">¿En qué momento debe realizarse la evaluación inicial de riesgos en un puesto de trabajo?</div>
-                    <div class="quiz-options">
-                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Esperar al accidente incumple el principio preventivo.')">A) Únicamente después de que haya ocurrido el primer accidente laboral grave</button>
-                        <button class="quiz-btn" onclick="checkAnswer(this, true, '¡Correcto! Debe realizarse con carácter general antes de que se inicien las actividades, teniendo en cuenta la naturaleza del puesto y equipos.')">B) Con carácter general antes de que se inicien las actividades laborales, y actualizarse cuando cambien las condiciones de trabajo</button>
-                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. La normativa exige evaluaciones periódicas y previas.')">C) Solamente cuando lo solicite explícitamente la inspección de trabajo</button>
-                    </div>
-                    <div class="quiz-feedback" id="feedback-9"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 10: Transición a Jose / Riesgo Eléctrico -->
-        <div class="slide" data-speaker="jose">
-            <div class="slide-header">
-                <span class="slide-tag">
-                    <svg class="icon-svg" fill="none" stroke="#f43f5e" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    Bloque 2 • Jose
-                </span>
-                <h2>Tipos de Contacto en Riesgo Eléctrico 🔌</h2>
-            </div>
-            <div class="slide-body">
-                <div class="grid-2">
-                    <div>
-                        <p style="margin-bottom: 10px;">• <strong>Contacto Directo:</strong> Interacción con partes activas de la instalación o cableado de alta tensión.</p>
-                        <p>• <strong>Contacto Indirecto:</strong> Contacto con partes metálicas del vehículo o bancada accidentalmente bajo tensión por fallo de aislamiento.</p>
-                    </div>
-                    <div>
-                        <img src="https://locksafe.com.au/wp-content/uploads/2022/04/Understanding-the-Importance-of-LockoutTagout-Procedures.jpg" alt="Seguridad eléctrica y bloqueo LOTO" class="slide-img">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 11: Reglas de Oro -->
-        <div class="slide" data-speaker="jose">
-            <div class="slide-header">
-                <span class="slide-tag">
-                    <svg class="icon-svg" fill="none" stroke="#f43f5e" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2zm10-10V7a4 4 0 0 0-8 0v4h8z"></path></svg>
-                    Bloque 2 • Jose
-                </span>
-                <h2>Las 5 Reglas de Oro en Electricidad ⚡</h2>
-            </div>
-            <div class="slide-body">
-                <div class="grid-2">
-                    <div class="card-box" style="border-left: 4px solid var(--accent-jose);">
-                        <h3 style="color: var(--accent-jose);">
-                            <svg class="icon-svg" fill="none" stroke="#f43f5e" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path></svg>
-                            Secuencia Inalterable (LOTO)
-                        </h3>
-                        <p style="font-size: 0.9rem; line-height: 1.45;">
-                            1. Corte efectivo de tensión.<br>
-                            2. Bloqueo y enclavamiento mecánico.<br>
-                            3. Comprobación de ausencia de tensión.<br>
-                            4. Puesta a tierra y en cortocircuito.<br>
-                            5. Delimitación y señalización de la zona.
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono-tech text-xs text-sky-400 font-bold">FACTOR 01 // TIEMPOS</span>
+                            <!-- Tachometer SVG -->
+                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 14L16 10M3.34 17A10 10 0 1 1 20.66 17" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="12" cy="14" r="2" fill="#f43f5e"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Presión por Tiempos Baremo</h3>
+                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                            Sobrecarga cuantitativa al exigir reparaciones por debajo del manual de tiempos del fabricante y clientes impacientes esperando el vehículo.
                         </p>
                     </div>
+                    <div class="mt-4 pt-3 border-t border-slate-800 text-xs font-mono-tech text-sky-300">
+                        RIESGO: PRISAS = DESPISTES EN EL ELEVADOR
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="hud-card hud-card-cyan rounded-2xl p-6 flex flex-col justify-between border-t-4 border-t-amber-400">
                     <div>
-                        <p style="font-size: 1.05rem;">Protocolo estándar internacional de obligado cumplimiento para garantizar la seguridad absoluta frente a reconexiones en híbridos y eléctricos.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 12: Inhalación y EPIs -->
-        <div class="slide" data-speaker="jose">
-            <div class="slide-header">
-                <span class="slide-tag">
-                    <svg class="icon-svg" fill="none" stroke="#f43f5e" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 0 0-1.022-.547l-2.387-.477a6 6 0 0 0-3.86.517l-.318.158a6 6 0 0 1-3.86.517L6.05 15.21a2 2 0 0 0-1.806.547M8 4h8l-1 1v5.172a2 2 0 0 0 .586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 0 0 9 10.172V5L8 4z"></path></svg>
-                    Bloque 2 • Jose
-                </span>
-                <h2>Riesgo por Inhalación y EPIs 🧪</h2>
-            </div>
-            <div class="slide-body">
-                <div class="grid-2">
-                    <div>
-                        <p style="margin-bottom: 10px;">Exposición a gases de escape, vapores de pintura, disolventes y polvos de frenos en el taller mecánico (COSHH).</p>
-                        <p style="color: var(--accent-jose); font-weight: 600;">💨 Jerarquía: Priorizar sistemas de extracción localizada antes de usar mascarillas homologadas.</p>
-                    </div>
-                    <div>
-                        <img src="https://workplacesafe.co.uk/images/news/the-importance-of-coshh-in-motor-vehicle-repair-workshops.webp?rand=61267" alt="Seguridad y manejo de químicos en taller" class="slide-img">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 13: Test 2 - Pregunta 1 -->
-        <div class="slide" data-speaker="jose">
-            <div class="slide-header">
-                <span class="slide-tag">
-                    <svg class="icon-svg" fill="none" stroke="#f43f5e" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"></path></svg>
-                    Test Parte 2 (1/4) • Jose
-                </span>
-                <h2>Evaluación Bloque 2: Contactos ⚡</h2>
-            </div>
-            <div class="slide-body">
-                <div class="quiz-container">
-                    <div class="quiz-question">¿Cómo se define técnicamente un contacto eléctrico indirecto?</div>
-                    <div class="quiz-options">
-                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Eso corresponde a un contacto directo.')">A) Cuando una persona toca directamente un cable pelado o borne bajo tensión</button>
-                        <button class="quiz-btn" onclick="checkAnswer(this, true, '¡Correcto! Ocurre al tocar partes metálicas de una máquina que accidentalmente han quedado bajo tensión por un fallo de aislamiento.')">B) Cuando una persona entra en contacto con elementos metálicos o masas que han quedado accidentalmente bajo tensión debido a un fallo de aislamiento interno</button>
-                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Eso es un arco eléctrico atmosférico.')">C) Cuando se produce un cortocircuito entre dos fases sin intervención humana</button>
-                    </div>
-                    <div class="quiz-feedback" id="feedback-13"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 14: Test 2 - Pregunta 2 -->
-        <div class="slide" data-speaker="jose">
-            <div class="slide-header">
-                <span class="slide-tag">
-                    <svg class="icon-svg" fill="none" stroke="#f43f5e" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"></path></svg>
-                    Test Parte 2 (2/4) • Jose
-                </span>
-                <h2>Evaluación Bloque 2: Reglas de Oro 🔒</h2>
-            </div>
-            <div class="slide-body">
-                <div class="quiz-container">
-                    <div class="quiz-question">¿Cuál es el primer paso obligatorio dentro de las 5 reglas de oro de la seguridad eléctrica?</div>
-                    <div class="quiz-options">
-                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Comprobar la ausencia de tensión es el tercer paso.')">A) Comprobar inmediatamente la ausencia de tensión con un multímetro</button>
-                        <button class="quiz-btn" onclick="checkAnswer(this, true, '¡Correcto! El primer paso es realizar el corte efectivo de todas las fuentes de tensión mediante interruptores o seccionadores.')">B) Efectuar el corte visible o efectivo de todas las posibles fuentes de tensión presentes en la instalación</button>
-                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Poner a tierra es el cuarto paso.')">C) Colocar las pinzas de puesta a tierra y en cortocircuito</button>
-                    </div>
-                    <div class="quiz-feedback" id="feedback-14"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 15: Test 2 - Pregunta 3 -->
-        <div class="slide" data-speaker="jose">
-            <div class="slide-header">
-                <span class="slide-tag">
-                    <svg class="icon-svg" fill="none" stroke="#f43f5e" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"></path></svg>
-                    Test Parte 2 (3/4) • Jose
-                </span>
-                <h2>Evaluación Bloque 2: Inhalación 🥽</h2>
-            </div>
-            <div class="slide-body">
-                <div class="quiz-container">
-                    <div class="quiz-question">Ante un riesgo de inhalación de sustancias tóxicas, ¿qué medida preventiva debe aplicarse primero?</div>
-                    <div class="quiz-options">
-                        <button class="quiz-btn" onclick="checkAnswer(this, true, '¡Correcto! La protección colectiva (como sistemas de extracción) siempre prevalece sobre los EPIs individuales.')">A) Implantar medidas de protección colectiva como sistemas de extracción localizada y ventilación antes que los equipos individuales</button>
-                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Los EPIs son el último recurso defensivo.')">B) Repartir mascarillas desechables sencillas sin verificar los niveles ambientales de gases</button>
-                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Ignorar el riesgo contraviene la normativa.')">C) Continuar operando con normalidad confiando en la ventilación natural de puertas</button>
-                    </div>
-                    <div class="quiz-feedback" id="feedback-15"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 16: Test 2 - Pregunta 4 -->
-        <div class="slide" data-speaker="jose">
-            <div class="slide-header">
-                <span class="slide-tag">
-                    <svg class="icon-svg" fill="none" stroke="#f43f5e" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"></path></svg>
-                    Test Parte 2 (4/4) • Jose
-                </span>
-                <h2>Evaluación Bloque 2: Bloqueo (LOTO) ⚙️</h2>
-            </div>
-            <div class="slide-body">
-                <div class="quiz-container">
-                    <div class="quiz-question">¿Qué objetivo persigue el bloqueo y enclavamiento (sistema LOTO) en trabajos eléctricos?</div>
-                    <div class="quiz-options">
-                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. No sirve para medir tensión.')">A) Facilitar la medición exacta de la corriente alterna en amperios</button>
-                        <button class="quiz-btn" onclick="checkAnswer(this, true, '¡Correcto! Evitar cualquier posible reconexión accidental o voluntaria del circuito mientras se manipula la instalación.')">B) Impedir cualquier posible reconexión accidental o maniobra involuntaria del circuito mientras el operario realiza tareas de mantenimiento</button>
-                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Su finalidad es estrictamente preventivo-eléctrica.')">C) Servir como elemento decorativo de señalización luminosa nocturna</button>
-                    </div>
-                    <div class="quiz-feedback" id="feedback-16"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 17: Cierre y Agradecimientos -->
-        <div class="slide" data-speaker="jose">
-            <div class="slide-header">
-                <span class="slide-tag" style="color: var(--accent-jose);">
-                    <svg class="icon-svg" fill="none" stroke="#f43f5e" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                    Cierre Definitivo
-                </span>
-                <h2 style="background: linear-gradient(135deg, #f8fafc 40%, var(--accent-jose) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">¡Muchas Gracias por la Atención! 🚗💨</h2>
-            </div>
-            <div class="slide-body">
-                <div class="grid-2">
-                    <div class="card-box" style="border: 2px solid rgba(244, 63, 94, 0.35); background: rgba(244, 63, 94, 0.06); transform: translateY(-4px);">
-                        <h3 style="color: var(--accent-jose); font-size: 1.3rem; margin-bottom: 12px;">
-                            <svg class="icon-svg" fill="none" stroke="#f43f5e" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2zm10-10V7a4 4 0 0 0-8 0v4h8z"></path></svg>
-                            Compromiso con la Seguridad
-                        </h3>
-                        <p style="font-size: 1.05rem; line-height: 1.6; color: var(--text-main);">
-                            La Prevención de Riesgos en Electromecánica no es un trámite, sino el pilar fundamental para garantizar nuestra integridad física y nuestro éxito profesional en el taller.
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono-tech text-xs text-amber-400 font-bold">FACTOR 02 // DIAGNOSIS</span>
+                            <!-- Microchip SVG -->
+                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none">
+                                <rect x="6" y="6" width="12" height="12" rx="2" fill="#78350f" stroke="#fbbf24" stroke-width="2"/>
+                                <path d="M9 2V6M15 2V6M9 18V22M15 18V22M2 9H6M2 15H6M18 9H22M18 15H22" stroke="#fcd34d" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Sobrecarga Mental Técnica</h3>
+                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                            Frustración y fatiga mental al diagnosticar averías electrónicas intermitentes en redes CAN-Bus o sistemas multiplexados complejos.
                         </p>
                     </div>
-                    <div class="card-box" style="border: 2px solid rgba(56, 189, 248, 0.35); background: rgba(56, 189, 248, 0.06);">
-                        <h3 style="color: var(--accent-manel); font-size: 1.3rem; margin-bottom: 12px;">
-                            <svg class="icon-svg" fill="none" stroke="#38bdf8" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                            Trabajo Exitoso Finalizado
-                        </h3>
-                        <p style="font-size: 1.05rem; line-height: 1.6; color: var(--text-main); margin-bottom: 14px;">
-                            Exposición desarrollada y defendida por <strong>Manel Gran Lafuente</strong> y <strong>Jose Ferrández Moya</strong>.
+                    <div class="mt-4 pt-3 border-t border-slate-800 text-xs font-mono-tech text-amber-300">
+                        RIESGO: BLOQUEO Y FATIGA VISUAL / COGNITIVA
+                    </div>
+                </div>
+
+                <!-- Card 3: Burnout -->
+                <div class="hud-card hud-card-crimson rounded-2xl p-6 flex flex-col justify-between border-t-4 border-t-rose-500">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono-tech text-xs text-rose-400 font-bold">FACTOR 03 // CRÓNICO</span>
+                            <!-- Flame Battery SVG -->
+                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2C12 2 7 7 7 12C7 15.31 9.69 18 13 18C16.31 18 19 15.31 19 12C19 9.5 17 6.5 17 6.5C17 6.5 16.5 9 14.5 9C12.5 9 12 2 12 2Z" fill="#e11d48" stroke="#fda4af" stroke-width="1.8"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Síndrome de Burnout</h3>
+                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                            Estado de agotamiento físico y mental crónico ("trabajador quemado"). Provoca pérdida de atención crítica al usar radiales, prensas o equipos de alta tensión.
                         </p>
-                        <p style="color: var(--accent-manel); font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1.5px;">
-                            ¡Fin de la Exposición! 🔧
-                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-800 text-xs font-mono-tech text-emerald-400">
+                        SOLUCIÓN: PAUSAS ACTIVAS Y ROTACIÓN DE TAREAS
                     </div>
                 </div>
             </div>
-        </div>
 
+            <div class="text-xs font-mono-tech text-slate-400 flex justify-between border-t border-slate-800/80 pt-3">
+                <span>PREVENCIÓN: ADECUAR CARGAS DE TRABAJO Y COMUNICACIÓN EN TALLER</span>
+                <span>PONENTE: MANEL GRAN</span>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 5: MANIPULACIÓN DE CARGAS (MANEL)
+        =========================================== -->
+        <section class="slide" data-speaker="manel" data-speaker-label="Ponente: Manel Gran Lafuente">
+            <div>
+                <span class="font-mono-tech text-xs uppercase tracking-widest text-sky-400 font-bold flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-sky-400"></span> BLOQUE 01 // EXPLICA: MANEL GRAN
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mt-1">Manipulación Manual de Cargas en el Taller</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center my-auto py-3">
+                <!-- Left Column: Ergonomic Rules -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="bg-gradient-to-r from-sky-500/20 to-blue-600/10 border border-sky-400/50 rounded-2xl p-4 flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-sky-400 text-slate-950 font-display font-bold text-xl flex items-center justify-center flex-shrink-0">
+                                25kg
+                            </div>
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-bold text-white">Límite Máximo Preventivo en General</h3>
+                                <p class="text-xs sm:text-sm text-sky-200">Culatas, cajas de cambio, baterías de camión y neumáticos SUV superan este umbral.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="hud-card rounded-2xl p-4 border-l-4 border-l-emerald-400">
+                            <div class="text-emerald-400 font-mono-tech text-xs font-bold mb-1">01 // BASE Y PIERNAS</div>
+                            <h4 class="text-white font-bold text-base">Pies separados y rodillas flexionadas</h4>
+                            <p class="text-slate-300 text-xs sm:text-sm mt-1">Ampliar la base de sustentación y hacer la fuerza con los cuádriceps, nunca arqueando las lumbares.</p>
+                        </div>
+                        <div class="hud-card rounded-2xl p-4 border-l-4 border-l-sky-400">
+                            <div class="text-sky-400 font-mono-tech text-xs font-bold mb-1">02 // CENTRO DE GRAVEDAD</div>
+                            <h4 class="text-white font-bold text-base">Espalda recta y carga pegada al torso</h4>
+                            <p class="text-slate-300 text-xs sm:text-sm mt-1">Pegar la pieza al cuerpo evita multiplicar la presión sobre los discos intervertebrales.</p>
+                        </div>
+                    </div>
+
+                    <div class="hud-card rounded-2xl p-4 border-l-4 border-l-amber-400 flex items-center gap-4">
+                        <!-- Hydraulic Crane SVG -->
+                        <svg class="w-10 h-10 flex-shrink-0" viewBox="0 0 24 24" fill="none">
+                            <path d="M4 20H20M6 20V8L18 4V11M18 11L16 14H20L18 11Z" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <div>
+                            <h4 class="text-white font-bold text-base">Ayudas Mecánicas Obligatorias</h4>
+                            <p class="text-slate-300 text-xs sm:text-sm">Uso de grúas pluma hidráulicas, gatos de foso para transmisiones y carros portarruedas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Visual Image -->
+                <div class="lg:col-span-5">
+                    <div class="hud-card rounded-2xl p-3 border border-sky-400/30">
+                        <img src="https://hsiassetstorage.sfo2.digitaloceanspaces.com/assets/images/blog/Safe-Lifting-01.png" 
+                             onerror="this.src='https://placehold.co/600x400/0f172a/38bdf8?text=Ergonomia+de+Cargas+25kg'"
+                             alt="Ergonomía levantamiento de cargas" 
+                             class="w-full h-64 sm:h-72 object-cover rounded-xl">
+                        <div class="flex items-center justify-between text-xs font-mono-tech text-sky-300 px-2 pt-2.5">
+                            <span>BIOMECÁNICA LUMBAR CORRECTA</span>
+                            <span>RD 487/1997</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-xs font-mono-tech text-slate-400 flex justify-between border-t border-slate-800/80 pt-3">
+                <span>PROHIBIDO GIRAR EL TRONCO MIENTRAS SE SOSTIENE PESO</span>
+                <span>SIGUIENTE: TEST BLOQUE 1 (MANEL)</span>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 6: TEST 1 - PREGUNTA 1/4 (MANEL)
+        =========================================== -->
+        <section class="slide" data-speaker="manel" data-speaker-label="Ponente: Manel Gran Lafuente">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="font-mono-tech text-xs uppercase tracking-widest text-sky-400 font-bold">TEST INTERACTIVO PARTE 1 // PREGUNTA 01 DE 04</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Evaluación Bloque 1: Marco Legal</h2>
+                </div>
+                <span class="px-4 py-1.5 rounded-xl bg-sky-500/20 border border-sky-400/40 font-mono-tech text-xs text-sky-300 font-bold">HAZ CLIC EN LA RESPUESTA</span>
+            </div>
+
+            <div class="my-auto py-4 space-y-5">
+                <div class="hud-card rounded-2xl p-5 border-l-4 border-l-sky-400">
+                    <p class="text-lg sm:text-xl font-bold text-white">
+                        1. ¿Cuál es la finalidad principal de la Ley 31/1995 de Prevención de Riesgos Laborales?
+                    </p>
+                </div>
+
+                <div class="space-y-3 quiz-group">
+                    <button onclick="answerQuiz(this, false, 'Incorrecto. La ley no tiene un fin meramente recaudatorio, sino preventivo.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-sky-400 flex items-center justify-center flex-shrink-0">A</span>
+                        <span class="text-sm sm:text-base text-slate-200">Imponer multas económicas a las empresas infractoras.</span>
+                    </button>
+
+                    <button onclick="answerQuiz(this, true, '¡Correcto! Su objetivo primordial es promover la seguridad y salud anticipándose a los riesgos del taller.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-sky-400 flex items-center justify-center flex-shrink-0">B</span>
+                        <span class="text-sm sm:text-base text-white font-medium">Promover la seguridad y salud de los trabajadores mediante la aplicación de medidas y el desarrollo de las actividades necesarias para la prevención de riesgos derivados del trabajo.</span>
+                    </button>
+
+                    <button onclick="answerQuiz(this, false, 'Incorrecto. Los salarios se regulan en los convenios colectivos, no en la Ley de PRL.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-sky-400 flex items-center justify-center flex-shrink-0">C</span>
+                        <span class="text-sm sm:text-base text-slate-200">Establecer las tablas salariales mínimas sectoriales anuales.</span>
+                    </button>
+                </div>
+
+                <div class="quiz-feedback min-h-[28px] font-mono-tech text-sm font-bold text-sky-400"></div>
+            </div>
+
+            <div class="text-xs font-mono-tech text-slate-400 flex justify-between border-t border-slate-800/80 pt-3">
+                <span>PISTA DE TALLER: LA OPCIÓN MÁS COMPLETA Y TÉCNICA ES LA CORRECTA</span>
+                <span>TEST 1 // 1 DE 4</span>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 7: TEST 1 - PREGUNTA 2/4 (MANEL)
+        =========================================== -->
+        <section class="slide" data-speaker="manel" data-speaker-label="Ponente: Manel Gran Lafuente">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="font-mono-tech text-xs uppercase tracking-widest text-sky-400 font-bold">TEST INTERACTIVO PARTE 1 // PREGUNTA 02 DE 04</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Evaluación Bloque 1: Riesgos Psicosociales</h2>
+                </div>
+                <span class="px-4 py-1.5 rounded-xl bg-sky-500/20 border border-sky-400/40 font-mono-tech text-xs text-sky-300 font-bold">HAZ CLIC EN LA RESPUESTA</span>
+            </div>
+
+            <div class="my-auto py-4 space-y-5">
+                <div class="hud-card rounded-2xl p-5 border-l-4 border-l-sky-400">
+                    <p class="text-lg sm:text-xl font-bold text-white">
+                        2. ¿Qué caracteriza principalmente al síndrome de Burnout en el ámbito laboral?
+                    </p>
+                </div>
+
+                <div class="space-y-3 quiz-group">
+                    <button onclick="answerQuiz(this, true, '¡Exacto! El síndrome de Burnout es el agotamiento físico y mental crónico por estrés laboral prolongado.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-sky-400 flex items-center justify-center flex-shrink-0">A</span>
+                        <span class="text-sm sm:text-base text-white font-medium">Un estado de agotamiento físico y mental crónico provocado por una exposición prolongada a estrés laboral intenso.</span>
+                    </button>
+
+                    <button onclick="answerQuiz(this, false, 'Incorrecto. Eso corresponde a una lesión traumática o sobreesfuerzo muscular puntual.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-sky-400 flex items-center justify-center flex-shrink-0">B</span>
+                        <span class="text-sm sm:text-base text-slate-200">Una lesión muscular puntual producida por un sobreesfuerzo físico aislado.</span>
+                    </button>
+
+                    <button onclick="answerQuiz(this, false, 'Incorrecto. Eso pertenece a los riesgos químicos o biológicos, no psicosociales.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-sky-400 flex items-center justify-center flex-shrink-0">C</span>
+                        <span class="text-sm sm:text-base text-slate-200">Una infección respiratoria derivada de la inhalación de agentes químicos.</span>
+                    </button>
+                </div>
+
+                <div class="quiz-feedback min-h-[28px] font-mono-tech text-sm font-bold text-sky-400"></div>
+            </div>
+
+            <div class="text-xs font-mono-tech text-slate-400 flex justify-between border-t border-slate-800/80 pt-3">
+                <span>SÍNDROME DE DESGASTE PROFESIONAL EN EL TALLER</span>
+                <span>TEST 1 // 2 DE 4</span>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 8: TEST 1 - PREGUNTA 3/4 (MANEL)
+        =========================================== -->
+        <section class="slide" data-speaker="manel" data-speaker-label="Ponente: Manel Gran Lafuente">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="font-mono-tech text-xs uppercase tracking-widest text-sky-400 font-bold">TEST INTERACTIVO PARTE 1 // PREGUNTA 03 DE 04</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Evaluación Bloque 1: Manipulación de Cargas</h2>
+                </div>
+                <span class="px-4 py-1.5 rounded-xl bg-sky-500/20 border border-sky-400/40 font-mono-tech text-xs text-sky-300 font-bold">HAZ CLIC EN LA RESPUESTA</span>
+            </div>
+
+            <div class="my-auto py-4 space-y-5">
+                <div class="hud-card rounded-2xl p-5 border-l-4 border-l-sky-400">
+                    <p class="text-lg sm:text-xl font-bold text-white">
+                        3. ¿Cuál es la técnica corporal correcta al levantar manualmente un objeto pesado del suelo?
+                    </p>
+                </div>
+
+                <div class="space-y-3 quiz-group">
+                    <button onclick="answerQuiz(this, false, 'Incorrecto. Doblar la espalda con las piernas rígidas multiplica el riesgo de hernia discal.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-sky-400 flex items-center justify-center flex-shrink-0">A</span>
+                        <span class="text-sm sm:text-base text-slate-200">Doblar la espalda manteniendo las piernas completamente rígidas y estiradas.</span>
+                    </button>
+
+                    <button onclick="answerQuiz(this, false, 'Incorrecto. Alejar la carga del cuerpo aumenta drásticamente la tensión lumbar.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-sky-400 flex items-center justify-center flex-shrink-0">B</span>
+                        <span class="text-sm sm:text-base text-slate-200">Mantener los brazos completamente estirados hacia adelante alejados del torso.</span>
+                    </button>
+
+                    <button onclick="answerQuiz(this, true, '¡Perfecto! Rodillas flexionadas, espalda recta y carga pegada al centro de gravedad del cuerpo.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-sky-400 flex items-center justify-center flex-shrink-0">C</span>
+                        <span class="text-sm sm:text-base text-white font-medium">Flexionar las rodillas manteniendo la espalda recta, apoyando la fuerza en las extremidades inferiores y pegando la carga al torso.</span>
+                    </button>
+                </div>
+
+                <div class="quiz-feedback min-h-[28px] font-mono-tech text-sm font-bold text-sky-400"></div>
+            </div>
+
+            <div class="text-xs font-mono-tech text-slate-400 flex justify-between border-t border-slate-800/80 pt-3">
+                <span>ERGONOMÍA APLICADA AL LEVANTAMIENTO DE MOTORES Y BATERÍAS</span>
+                <span>TEST 1 // 3 DE 4</span>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 9: TEST 1 - PREGUNTA 4/4 (MANEL)
+        =========================================== -->
+        <section class="slide" data-speaker="manel" data-speaker-label="Ponente: Manel Gran Lafuente">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="font-mono-tech text-xs uppercase tracking-widest text-sky-400 font-bold">TEST INTERACTIVO PARTE 1 // PREGUNTA 04 DE 04</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Evaluación Bloque 1: Planificación Preventiva</h2>
+                </div>
+                <span class="px-4 py-1.5 rounded-xl bg-sky-500/20 border border-sky-400/40 font-mono-tech text-xs text-sky-300 font-bold">HAZ CLIC EN LA RESPUESTA</span>
+            </div>
+
+            <div class="my-auto py-4 space-y-5">
+                <div class="hud-card rounded-2xl p-5 border-l-4 border-l-sky-400">
+                    <p class="text-lg sm:text-xl font-bold text-white">
+                        4. ¿En qué momento debe realizarse la evaluación inicial de riesgos en un puesto de trabajo?
+                    </p>
+                </div>
+
+                <div class="space-y-3 quiz-group">
+                    <button onclick="answerQuiz(this, false, 'Incorrecto. Esperar al accidente incumple el principio básico de anticipación.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-sky-400 flex items-center justify-center flex-shrink-0">A</span>
+                        <span class="text-sm sm:text-base text-slate-200">Únicamente después de que haya ocurrido el primer accidente laboral grave.</span>
+                    </button>
+
+                    <button onclick="answerQuiz(this, true, '¡Correcto! Siempre antes de iniciar la actividad y cada vez que se introduzcan nuevas máquinas o cambios.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-sky-400 flex items-center justify-center flex-shrink-0">B</span>
+                        <span class="text-sm sm:text-base text-white font-medium">Con carácter general antes de que se inicien las actividades laborales, y actualizarse cuando cambien las condiciones de trabajo.</span>
+                    </button>
+
+                    <button onclick="answerQuiz(this, false, 'Incorrecto. Es una obligación permanente de la empresa, no solo ante inspecciones.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-sky-400 flex items-center justify-center flex-shrink-0">C</span>
+                        <span class="text-sm sm:text-base text-slate-200">Solamente cuando lo solicite explícitamente la inspección de trabajo.</span>
+                    </button>
+                </div>
+
+                <div class="quiz-feedback min-h-[28px] font-mono-tech text-sm font-bold text-sky-400"></div>
+            </div>
+
+            <div class="text-xs font-mono-tech text-slate-400 flex justify-between border-t border-slate-800/80 pt-3">
+                <span>FIN DEL BLOQUE 1 (MANEL) // RELEVO A JOSE EN LA SIGUIENTE DIAPOSITIVA</span>
+                <span>TEST 1 // 4 DE 4</span>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 10: RIESGO ELÉCTRICO (JOSE)
+        =========================================== -->
+        <section class="slide" data-speaker="jose" data-speaker-label="Ponente: Jose Ferrández Moya">
+            <div>
+                <span class="font-mono-tech text-xs uppercase tracking-widest text-rose-400 font-bold flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-rose-500"></span> BLOQUE 02 // EXPLICA: JOSE FERRÁNDEZ
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mt-1">Riesgo Eléctrico y Alta Tensión en Híbridos / EVs</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center my-auto py-3">
+                <!-- Left Column: Technical Content -->
+                <div class="lg:col-span-7 space-y-4">
+                    <!-- High Voltage Banner -->
+                    <div class="bg-gradient-to-r from-rose-600/25 via-orange-500/20 to-slate-900 border border-rose-500/60 rounded-2xl p-4 flex items-center justify-between">
+                        <div class="flex items-center gap-3.5">
+                            <!-- High Voltage Triangle SVG -->
+                            <svg class="w-12 h-12 flex-shrink-0 hv-pulse" viewBox="0 0 24 24" fill="none">
+                                <path d="M10.29 3.86L1.82 18A2 2 0 0 0 3.54 21H20.46A2 2 0 0 0 22.18 18L13.71 3.86A2 2 0 0 0 10.29 3.86Z" fill="#f59e0b" stroke="#fef08a" stroke-width="1.5"/>
+                                <path d="M13 9L9.5 14H12.5L11.5 18L15 13H12L13 9Z" fill="#0f172a"/>
+                            </svg>
+                            <div>
+                                <span class="font-mono-tech text-xs uppercase text-amber-300 font-bold">CABLEADO NARANJA DE ALTA TENSIÓN</span>
+                                <h3 class="text-xl font-bold text-white">Sistemas de 400V a 800V en Corriente Continua</h3>
+                            </div>
+                        </div>
+                        <span class="font-mono-tech text-2xl font-bold text-rose-400 hidden sm:inline">800V DC</span>
+                    </div>
+
+                    <!-- Direct vs Indirect Contact Cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="hud-card hud-card-crimson rounded-2xl p-5 border-t-4 border-t-rose-500">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-mono-tech text-xs text-rose-400 font-bold">MODALIDAD 01</span>
+                                <i class="fa-solid fa-plug-circle-bolt text-rose-400 text-xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">Contacto Directo</h4>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Ocurre cuando el operario toca directamente una parte activa bajo tensión: un cable naranja de alta tensión pelado, un borne de batería o las barras internas del inversor.
+                            </p>
+                        </div>
+
+                        <div class="hud-card hud-card-cyan rounded-2xl p-5 border-t-4 border-t-amber-400">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-mono-tech text-xs text-amber-400 font-bold">MODALIDAD 02</span>
+                                <i class="fa-solid fa-car-On text-amber-400 text-xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">Contacto Indirecto</h4>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Ocurre al tocar el chasis metálico del coche o la estructura del elevador que se han puesto accidentalmente bajo tensión por un fallo de aislamiento o derivación a masa.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Image -->
+                <div class="lg:col-span-5">
+                    <div class="hud-card rounded-2xl p-3 border border-rose-500/40">
+                        <img src="https://locksafe.com.au/wp-content/uploads/2022/04/Understanding-the-Importance-of-LockoutTagout-Procedures.jpg" 
+                             onerror="this.src='https://placehold.co/600x400/111827/f43f5e?text=Seguridad+Electrica+y+LOTO'"
+                             alt="Seguridad eléctrica y bloqueo LOTO" 
+                             class="w-full h-64 sm:h-72 object-cover rounded-xl">
+                        <div class="flex items-center justify-between text-xs font-mono-tech text-rose-300 px-2 pt-2.5">
+                            <span>AISLAMIENTO Y PROTECCIÓN ELÉCTRICA</span>
+                            <span>RD 614/2001</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-xs font-mono-tech text-slate-400 flex justify-between border-t border-slate-800/80 pt-3">
+                <span>PELIGRO DE FIBRILACIÓN VENTRICULAR Y ARCO ELÉCTRICO</span>
+                <span>PONENTE: JOSE FERRÁNDEZ</span>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 11: 5 REGLAS DE ORO Y LOTO (JOSE)
+        =========================================== -->
+        <section class="slide" data-speaker="jose" data-speaker-label="Ponente: Jose Ferrández Moya">
+            <div>
+                <span class="font-mono-tech text-xs uppercase tracking-widest text-rose-400 font-bold flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-rose-500"></span> BLOQUE 02 // EXPLICA: JOSE FERRÁNDEZ
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mt-1">Las 5 Reglas de Oro y Protocolo LOTO</h2>
+            </div>
+
+            <!-- 5 Steps Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-3.5 my-auto py-4">
+                <!-- Step 1 -->
+                <div class="hud-card hud-card-crimson rounded-2xl p-4 flex flex-col justify-between border-t-4 border-t-rose-500">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="w-9 h-9 rounded-xl bg-rose-500 text-white font-mono-tech font-bold text-lg flex items-center justify-center">01</span>
+                            <i class="fa-solid fa-power-off text-rose-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1.5">Corte Efectivo</h3>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Abrir el interruptor general o retirar el desconectador de servicio (<i>Service Plug</i>) de la batería de alta tensión.
+                        </p>
+                    </div>
+                    <span class="font-mono-tech text-[11px] text-rose-300 mt-3 pt-2 border-t border-slate-800">PASO OBLIGATORIO 1</span>
+                </div>
+
+                <!-- Step 2: LOTO Highlighted -->
+                <div class="hud-card rounded-2xl p-4 flex flex-col justify-between border-2 border-amber-400 bg-gradient-to-b from-amber-500/20 to-slate-900 shadow-[0_0_25px_rgba(251,191,36,0.2)]">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="w-9 h-9 rounded-xl bg-amber-400 text-slate-950 font-mono-tech font-bold text-lg flex items-center justify-center">02</span>
+                            <!-- Colored LOTO Padlock SVG -->
+                            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none">
+                                <rect x="5" y="11" width="14" height="10" rx="2" fill="#e11d48" stroke="#fbbf24" stroke-width="1.8"/>
+                                <path d="M8 11V7A4 4 0 0 1 16 7V11" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="12" cy="16" r="1.5" fill="#fef08a"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-amber-300 mb-1.5">Bloqueo LOTO</h3>
+                        <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                            <i>Lockout-Tagout</i>: Colocar un candado físico personal con etiqueta para impedir que nadie reconecte la corriente por error.
+                        </p>
+                    </div>
+                    <span class="font-mono-tech text-[11px] text-amber-300 font-bold mt-3 pt-2 border-t border-amber-500/30">CLAVE CRÍTICA LOTO</span>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="hud-card hud-card-crimson rounded-2xl p-4 flex flex-col justify-between border-t-4 border-t-sky-400">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="w-9 h-9 rounded-xl bg-sky-400 text-slate-950 font-mono-tech font-bold text-lg flex items-center justify-center">03</span>
+                            <i class="fa-solid fa-gauge-Simple-high text-sky-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1.5">Comprobar 0V</h3>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Verificar la ausencia total de tensión (0V) con un multímetro homologado CAT III / CAT IV 1000V tras descargar condensadores.
+                        </p>
+                    </div>
+                    <span class="font-mono-tech text-[11px] text-sky-300 mt-3 pt-2 border-t border-slate-800">VERIFICACIÓN REAL</span>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="hud-card hud-card-crimson rounded-2xl p-4 flex flex-col justify-between border-t-4 border-t-emerald-400">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="w-9 h-9 rounded-xl bg-emerald-400 text-slate-950 font-mono-tech font-bold text-lg flex items-center justify-center">04</span>
+                            <i class="fa-solid fa-link-slash text-emerald-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1.5">Puesta a Tierra</h3>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Conectar los dispositivos de puesta a tierra y en cortocircuito en las instalaciones para derivar descargas inducidas.
+                        </p>
+                    </div>
+                    <span class="font-mono-tech text-[11px] text-emerald-300 mt-3 pt-2 border-t border-slate-800">DERIVACIÓN SEGURA</span>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="hud-card hud-card-crimson rounded-2xl p-4 flex flex-col justify-between border-t-4 border-t-purple-400">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="w-9 h-9 rounded-xl bg-purple-400 text-slate-950 font-mono-tech font-bold text-lg flex items-center justify-center">05</span>
+                            <i class="fa-solid fa-triangle-exclamation text-purple-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1.5">Señalización</h3>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Delimitar el box de trabajo con postes, cadenas y carteles de advertencia de "Peligro: Vehículo en Alta Tensión".
+                        </p>
+                    </div>
+                    <span class="font-mono-tech text-[11px] text-purple-300 mt-3 pt-2 border-t border-slate-800">PERÍMETRO AISLADO</span>
+                </div>
+            </div>
+
+            <div class="text-xs font-mono-tech text-slate-400 flex justify-between border-t border-slate-800/80 pt-3">
+                <span>ORDEN ESTRICTAMENTE INALTERABLE DE SEGURIDAD ELÉCTRICA</span>
+                <span>PONENTE: JOSE FERRÁNDEZ</span>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 12: INHALACIÓN Y EPIS (JOSE)
+        =========================================== -->
+        <section class="slide" data-speaker="jose" data-speaker-label="Ponente: Jose Ferrández Moya">
+            <div>
+                <span class="font-mono-tech text-xs uppercase tracking-widest text-rose-400 font-bold flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-rose-500"></span> BLOQUE 02 // EXPLICA: JOSE FERRÁNDEZ
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mt-1">Riesgo por Inhalación y EPIs (Normativa COSHH)</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center my-auto py-3">
+                <!-- Left Column: Hierarchy -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="hud-card rounded-2xl p-4 border-l-4 border-l-rose-500">
+                        <div class="text-xs font-mono-tech text-rose-400 font-bold mb-1">AGENTES TÓXICOS EN EL TALLER</div>
+                        <h3 class="text-lg sm:text-xl font-bold text-white">Gases de Escape (CO), Pinturas y Polvo de Frenos</h3>
+                        <p class="text-slate-300 text-xs sm:text-sm mt-1">
+                            El monóxido de carbono en locales cerrados produce asfixia química, y los vapores de disolventes/isocianatos o el polvo de pastillas de freno dañan gravemente los pulmones.
+                        </p>
+                    </div>
+
+                    <!-- Hierarchy Step 1 -->
+                    <div class="bg-emerald-500/15 border-2 border-emerald-400/60 rounded-2xl p-4 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-400 text-slate-950 font-mono-tech font-bold text-lg flex items-center justify-center flex-shrink-0">
+                            1º
+                        </div>
+                        <div>
+                            <span class="font-mono-tech text-xs uppercase text-emerald-300 font-bold">PRIORIDAD ABSOLUTA // PROTECCIÓN COLECTIVA</span>
+                            <h4 class="text-lg font-bold text-white">Extracción Localizada y Ventilación</h4>
+                            <p class="text-slate-200 text-xs sm:text-sm">Conectar siempre las mangueras de aspiración directa al tubo de escape y usar bancos aspirantes de lijado.</p>
+                        </div>
+                    </div>
+
+                    <!-- Hierarchy Step 2 -->
+                    <div class="hud-card rounded-2xl p-4 border-l-4 border-l-sky-400 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-sky-500/20 border border-sky-400/40 text-sky-300 font-mono-tech font-bold text-lg flex items-center justify-center flex-shrink-0">
+                            2º
+                        </div>
+                        <div>
+                            <span class="font-mono-tech text-xs uppercase text-sky-400 font-bold">ÚLTIMA BARRERA // PROTECCIÓN INDIVIDUAL (EPI)</span>
+                            <h4 class="text-lg font-bold text-white">Mascarillas con Filtros Específicos ABEK / P3</h4>
+                            <p class="text-slate-300 text-xs sm:text-sm">Uso obligatorio de máscaras buconasales homologadas contra vapores orgánicos, gases y partículas finas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Image -->
+                <div class="lg:col-span-5">
+                    <div class="hud-card rounded-2xl p-3 border border-rose-500/30">
+                        <img src="https://workplacesafe.co.uk/images/news/the-importance-of-coshh-in-motor-vehicle-repair-workshops.webp?rand=61267" 
+                             onerror="this.src='https://placehold.co/600x400/111827/38bdf8?text=Control+de+Quimicos+COSHH'"
+                             alt="Seguridad y manejo de químicos en taller" 
+                             class="w-full h-64 sm:h-72 object-cover rounded-xl">
+                        <div class="flex items-center justify-between text-xs font-mono-tech text-rose-300 px-2 pt-2.5">
+                            <span>CONTROL QUÍMICO COSHH EN TALLER</span>
+                            <span>PROTECCIÓN COLECTIVA &gt; EPI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-xs font-mono-tech text-slate-400 flex justify-between border-t border-slate-800/80 pt-3">
+                <span>REGLA PREVENTIVA: ANTEPONER SIEMPRE LA PROTECCIÓN COLECTIVA A LA INDIVIDUAL</span>
+                <span>SIGUIENTE: TEST BLOQUE 2 (JOSE)</span>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 13: TEST 2 - PREGUNTA 1/4 (JOSE)
+        =========================================== -->
+        <section class="slide" data-speaker="jose" data-speaker-label="Ponente: Jose Ferrández Moya">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="font-mono-tech text-xs uppercase tracking-widest text-rose-400 font-bold">TEST INTERACTIVO PARTE 2 // PREGUNTA 01 DE 04</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Evaluación Bloque 2: Contactos Eléctricos</h2>
+                </div>
+                <span class="px-4 py-1.5 rounded-xl bg-rose-500/20 border border-rose-400/40 font-mono-tech text-xs text-rose-300 font-bold">HAZ CLIC EN LA RESPUESTA</span>
+            </div>
+
+            <div class="my-auto py-4 space-y-5">
+                <div class="hud-card rounded-2xl p-5 border-l-4 border-l-rose-500">
+                    <p class="text-lg sm:text-xl font-bold text-white">
+                        1. ¿Cómo se define técnicamente un contacto eléctrico indirecto?
+                    </p>
+                </div>
+
+                <div class="space-y-3 quiz-group">
+                    <button onclick="answerQuiz(this, false, 'Incorrecto. Tocar directamente un cable activo o borne es un contacto directo.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-rose-400 flex items-center justify-center flex-shrink-0">A</span>
+                        <span class="text-sm sm:text-base text-slate-200">Cuando una persona toca directamente un cable pelado o borne bajo tensión.</span>
+                    </button>
+
+                    <button onclick="answerQuiz(this, true, '¡Correcto! Ocurre al tocar el chasis o partes metálicas puestas accidentalmente bajo tensión por un fallo de aislamiento.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-rose-400 flex items-center justify-center flex-shrink-0">B</span>
+                        <span class="text-sm sm:text-base text-white font-medium">Cuando una persona entra en contacto con elementos metálicos o masas que han quedado accidentalmente bajo tensión debido a un fallo de aislamiento interno.</span>
+                    </button>
+
+                    <button onclick="answerQuiz(this, false, 'Incorrecto. Eso es un cortocircuito eléctrico sin contacto con el trabajador.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-rose-400 flex items-center justify-center flex-shrink-0">C</span>
+                        <span class="text-sm sm:text-base text-slate-200">Cuando se produce un cortocircuito entre dos fases sin intervención humana.</span>
+                    </button>
+                </div>
+
+                <div class="quiz-feedback min-h-[28px] font-mono-tech text-sm font-bold text-rose-400"></div>
+            </div>
+
+            <div class="text-xs font-mono-tech text-slate-400 flex justify-between border-t border-slate-800/80 pt-3">
+                <span>SEGURIDAD EN VEHÍCULOS HÍBRIDOS Y ELÉCTRICOS</span>
+                <span>TEST 2 // 1 DE 4</span>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 14: TEST 2 - PREGUNTA 2/4 (JOSE)
+        =========================================== -->
+        <section class="slide" data-speaker="jose" data-speaker-label="Ponente: Jose Ferrández Moya">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="font-mono-tech text-xs uppercase tracking-widest text-rose-400 font-bold">TEST INTERACTIVO PARTE 2 // PREGUNTA 02 DE 04</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Evaluación Bloque 2: Las 5 Reglas de Oro</h2>
+                </div>
+                <span class="px-4 py-1.5 rounded-xl bg-rose-500/20 border border-rose-400/40 font-mono-tech text-xs text-rose-300 font-bold">HAZ CLIC EN LA RESPUESTA</span>
+            </div>
+
+            <div class="my-auto py-4 space-y-5">
+                <div class="hud-card rounded-2xl p-5 border-l-4 border-l-rose-500">
+                    <p class="text-lg sm:text-xl font-bold text-white">
+                        2. ¿Cuál es el primer paso obligatorio dentro de las 5 reglas de oro de la seguridad eléctrica?
+                    </p>
+                </div>
+
+                <div class="space-y-3 quiz-group">
+                    <button onclick="answerQuiz(this, false, 'Incorrecto. Comprobar la ausencia de tensión es la tercera regla de oro.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-rose-400 flex items-center justify-center flex-shrink-0">A</span>
+                        <span class="text-sm sm:text-base text-slate-200">Comprobar inmediatamente la ausencia de tensión con un multímetro.</span>
+                    </button>
+
+                    <button onclick="answerQuiz(this, true, '¡Exacto! La primera regla de oro es siempre efectuar el corte visible o efectivo de todas las fuentes de tensión.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-rose-400 flex items-center justify-center flex-shrink-0">B</span>
+                        <span class="text-sm sm:text-base text-white font-medium">Efectuar el corte visible o efectivo de todas las posibles fuentes de tensión presentes en la instalación.</span>
+                    </button>
+
+                    <button onclick="answerQuiz(this, false, 'Incorrecto. Poner a tierra y en cortocircuito es la cuarta regla de oro.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-rose-400 flex items-center justify-center flex-shrink-0">C</span>
+                        <span class="text-sm sm:text-base text-slate-200">Colocar las pinzas de puesta a tierra y en cortocircuito.</span>
+                    </button>
+                </div>
+
+                <div class="quiz-feedback min-h-[28px] font-mono-tech text-sm font-bold text-rose-400"></div>
+            </div>
+
+            <div class="text-xs font-mono-tech text-slate-400 flex justify-between border-t border-slate-800/80 pt-3">
+                <span>SECUENCIA: 1. CORTE • 2. BLOQUEO LOTO • 3. COMPROBAR 0V • 4. TIERRA • 5. SEÑALIZAR</span>
+                <span>TEST 2 // 2 DE 4</span>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 15: TEST 2 - PREGUNTA 3/4 (JOSE)
+        =========================================== -->
+        <section class="slide" data-speaker="jose" data-speaker-label="Ponente: Jose Ferrández Moya">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="font-mono-tech text-xs uppercase tracking-widest text-rose-400 font-bold">TEST INTERACTIVO PARTE 2 // PREGUNTA 03 DE 04</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Evaluación Bloque 2: Riesgo por Inhalación</h2>
+                </div>
+                <span class="px-4 py-1.5 rounded-xl bg-rose-500/20 border border-rose-400/40 font-mono-tech text-xs text-rose-300 font-bold">HAZ CLIC EN LA RESPUESTA</span>
+            </div>
+
+            <div class="my-auto py-4 space-y-5">
+                <div class="hud-card rounded-2xl p-5 border-l-4 border-l-rose-500">
+                    <p class="text-lg sm:text-xl font-bold text-white">
+                        3. Ante un riesgo de inhalación de sustancias tóxicas, ¿qué medida preventiva debe aplicarse primero?
+                    </p>
+                </div>
+
+                <div class="space-y-3 quiz-group">
+                    <button onclick="answerQuiz(this, true, '¡Correcto! La protección colectiva (extracción localizada y ventilación) siempre tiene prioridad sobre el EPI individual.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-rose-400 flex items-center justify-center flex-shrink-0">A</span>
+                        <span class="text-sm sm:text-base text-white font-medium">Implantar medidas de protección colectiva como sistemas de extracción localizada y ventilación antes que los equipos individuales.</span>
+                    </button>
+
+                    <button onclick="answerQuiz(this, false, 'Incorrecto. Los EPIs individuales solo se usan cuando la protección colectiva no basta.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-rose-400 flex items-center justify-center flex-shrink-0">B</span>
+                        <span class="text-sm sm:text-base text-slate-200">Repartir mascarillas desechables sencillas sin verificar los niveles ambientales de gases.</span>
+                    </button>
+
+                    <button onclick="answerQuiz(this, false, 'Incorrecto. El monóxido de carbono requiere extracción forzada en el escape.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-rose-400 flex items-center justify-center flex-shrink-0">C</span>
+                        <span class="text-sm sm:text-base text-slate-200">Continuar operando con normalidad confiando en la ventilación natural de puertas.</span>
+                    </button>
+                </div>
+
+                <div class="quiz-feedback min-h-[28px] font-mono-tech text-sm font-bold text-rose-400"></div>
+            </div>
+
+            <div class="text-xs font-mono-tech text-slate-400 flex justify-between border-t border-slate-800/80 pt-3">
+                <span>JERARQUÍA PREVENTIVA: PROTECCIÓN COLECTIVA ANTES QUE INDIVIDUAL</span>
+                <span>TEST 2 // 3 DE 4</span>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 16: TEST 2 - PREGUNTA 4/4 (JOSE)
+        =========================================== -->
+        <section class="slide" data-speaker="jose" data-speaker-label="Ponente: Jose Ferrández Moya">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="font-mono-tech text-xs uppercase tracking-widest text-rose-400 font-bold">TEST INTERACTIVO PARTE 2 // PREGUNTA 04 DE 04</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Evaluación Bloque 2: Bloqueo LOTO</h2>
+                </div>
+                <span class="px-4 py-1.5 rounded-xl bg-rose-500/20 border border-rose-400/40 font-mono-tech text-xs text-rose-300 font-bold">HAZ CLIC EN LA RESPUESTA</span>
+            </div>
+
+            <div class="my-auto py-4 space-y-5">
+                <div class="hud-card rounded-2xl p-5 border-l-4 border-l-rose-500">
+                    <p class="text-lg sm:text-xl font-bold text-white">
+                        4. ¿Qué objetivo persigue el bloqueo y enclavamiento (sistema LOTO) en trabajos eléctricos?
+                    </p>
+                </div>
+
+                <div class="space-y-3 quiz-group">
+                    <button onclick="answerQuiz(this, false, 'Incorrecto. Para medir la corriente o tensión se emplea el multímetro o pinza amperimétrica.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-rose-400 flex items-center justify-center flex-shrink-0">A</span>
+                        <span class="text-sm sm:text-base text-slate-200">Facilitar la medición exacta de la corriente alterna en amperios.</span>
+                    </button>
+
+                    <button onclick="answerQuiz(this, true, '¡Pleno! El candado LOTO impide que cualquier compañero o fallo fortuito reconecte la corriente mientras trabajas.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-rose-400 flex items-center justify-center flex-shrink-0">B</span>
+                        <span class="text-sm sm:text-base text-white font-medium">Impedir cualquier posible reconexión accidental o maniobra involuntaria del circuito mientras el operario realiza tareas de mantenimiento.</span>
+                    </button>
+
+                    <button onclick="answerQuiz(this, false, 'Incorrecto. Es un dispositivo de seguridad crítica, nunca decorativo.')" class="quiz-option w-full text-left p-4 rounded-2xl flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-600 font-mono-tech font-bold text-rose-400 flex items-center justify-center flex-shrink-0">C</span>
+                        <span class="text-sm sm:text-base text-slate-200">Servir como elemento decorativo de señalización luminosa nocturna.</span>
+                    </button>
+                </div>
+
+                <div class="quiz-feedback min-h-[28px] font-mono-tech text-sm font-bold text-rose-400"></div>
+            </div>
+
+            <div class="text-xs font-mono-tech text-slate-400 flex justify-between border-t border-slate-800/80 pt-3">
+                <span>LOCKOUT-TAGOUT: UN CANDADO, UNA LLAVE, UN OPERARIO</span>
+                <span>TEST 2 // 4 DE 4</span>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 17: CIERRE DEFINITIVO (SIN PREGUNTAS)
+        =========================================== -->
+        <section class="slide" data-speaker="shared" data-speaker-label="Ponentes: Manel Gran & Jose Ferrández">
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
+                <span class="font-mono-tech text-xs uppercase tracking-widest text-emerald-400 font-bold">DIAGNÓSTICO COMPLETADO AL 100% // FIN DE EXPOSICIÓN</span>
+                <span class="font-mono-tech text-xs text-slate-400">CICLO FORMATIVO ELECTROMECÁNICA</span>
+            </div>
+
+            <div class="my-auto py-4 text-center space-y-6">
+                <!-- Racing Flag + Shield Custom SVG -->
+                <div class="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-sky-500/20 via-slate-900 to-rose-500/20 border-2 border-sky-400/50 flex items-center justify-center shadow-[0_0_40px_rgba(56,189,248,0.3)]">
+                    <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 15C4 15 5 14 8 14C11 14 13 16 16 16C19 16 20 15 20 15V3C20 3 19 4 16 4C13 4 11 2 8 2C5 2 4 3 4 3V15Z" fill="#0284c7" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4 22V15" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M9 7L11 9L15 5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+
+                <div class="space-y-3 max-w-3xl mx-auto">
+                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-white to-rose-400">
+                        ¡Muchas Gracias por Vuestra Atención!
+                    </h2>
+                    <p class="text-slate-300 text-base sm:text-xl leading-relaxed">
+                        La Prevención de Riesgos Laborales no es un simple trámite académico: es el escudo que garantiza que cada día salgamos del taller con la misma salud e integridad con la que entramos.
+                    </p>
+                </div>
+
+                <!-- Summary & Score Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto pt-2">
+                    <div class="hud-card rounded-2xl p-5 border-t-2 border-t-sky-400">
+                        <div class="font-mono-tech text-xs text-sky-400 font-bold">BLOQUE 01</div>
+                        <div class="text-xl font-bold text-white mt-1">Manel Gran Lafuente</div>
+                        <div class="text-xs text-slate-400 mt-1">Ley 31/1995 • Psicosociales • Cargas</div>
+                    </div>
+
+                    <div class="hud-card rounded-2xl p-5 border-t-2 border-t-emerald-400 bg-emerald-950/20">
+                        <div class="font-mono-tech text-xs text-emerald-400 font-bold">PUNTUACIÓN TESTS CLASE</div>
+                        <div id="finalScoreDisplay" class="text-3xl font-mono-tech font-bold text-emerald-300 mt-1">0 / 8 ACIERTOS</div>
+                        <div class="text-xs text-emerald-200/70 mt-1">Evaluación Interactiva PRL</div>
+                    </div>
+
+                    <div class="hud-card rounded-2xl p-5 border-t-2 border-t-rose-500">
+                        <div class="font-mono-tech text-xs text-rose-400 font-bold">BLOQUE 02</div>
+                        <div class="text-xl font-bold text-white mt-1">Jose Ferrández Moya</div>
+                        <div class="text-xs text-slate-400 mt-1">Alta Tensión EV • Reglas LOTO • EPIs</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-xs font-mono-tech text-slate-400 flex justify-between border-t border-slate-800/80 pt-3">
+                <span>PROYECTO FINALIZADO // ELECTROMECÁNICA DE VEHÍCULOS</span>
+                <span>MANEL GRAN &amp; JOSE FERRÁNDEZ</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FLOATING TELEPROMPTER / GUION DRAWER (TOGGLEABLE) -->
+    <div id="teleprompterDrawer" class="fixed bottom-20 left-1/2 -translate-x-1/2 max-w-5xl w-[92%] bg-slate-950/95 border-2 border-sky-400/60 rounded-2xl p-4 shadow-[0_20px_50px_rgba(0,0,0,0.9)] z-40 hidden backdrop-blur-xl">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-2">
+            <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span id="scriptSpeakerTitle" class="font-mono-tech text-xs font-bold uppercase tracking-wider text-sky-400">GUION EN VIVO (8 MIN/PERSONA)</span>
+            </div>
+            <button onclick="toggleTeleprompter()" class="text-xs font-mono-tech text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800">CERRAR [G]</button>
+        </div>
+        <p id="scriptText" class="text-slate-100 text-sm sm:text-base leading-relaxed font-medium"></p>
     </div>
 
-    <!-- Navigation Controls -->
-    <div class="nav-controls">
-        <button id="prevBtn" class="nav-btn" onclick="changeSlide(-1)" disabled>⬅️ Anterior</button>
-        <div class="hint-text">Usa los botones o las flechas del teclado ◄ ►</div>
-        <button id="nextBtn" class="nav-btn" onclick="changeSlide(1)">Siguiente ➡️</button>
-    </div>
+    <!-- BOTTOM NAVIGATION & CONTROLS BAR -->
+    <footer class="relative z-20 max-w-7xl w-full mx-auto flex flex-wrap items-center justify-between gap-3 mt-3 px-1">
+        <!-- Left Controls: Teleprompter & Fullscreen -->
+        <div class="flex items-center gap-2.5">
+            <button id="teleprompterBtn" onclick="toggleTeleprompter()" class="px-3.5 py-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-xs sm:text-sm font-display font-semibold text-slate-200 flex items-center gap-2 transition-all shadow-lg">
+                <i class="fa-solid fa-scroll text-sky-400"></i>
+                <span>Modo Guion</span>
+            </button>
+            <button onclick="toggleFullScreen()" class="px-3.5 py-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-xs sm:text-sm font-display font-semibold text-slate-200 flex items-center gap-2 transition-all shadow-lg" title="Pantalla Completa">
+                <i class="fa-solid fa-expand text-rose-400"></i>
+                <span class="hidden md:inline">Pantalla Completa</span>
+            </button>
+        </div>
+
+        <!-- Center Quick Slide Dots -->
+        <div id="slideDots" class="hidden lg:flex items-center gap-1.5 bg-slate-900/80 border border-slate-800 px-3 py-2 rounded-full"></div>
+
+        <!-- Right Navigation Buttons -->
+        <div class="flex items-center gap-2.5">
+            <button id="prevBtn" onclick="changeSlide(-1)" class="px-4 py-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 disabled:opacity-35 disabled:pointer-events-none border border-slate-700 text-xs sm:text-sm font-display font-bold text-white flex items-center gap-2 transition-all shadow-lg">
+                <i class="fa-solid fa-chevron-left text-sky-400"></i>
+                <span>Anterior</span>
+            </button>
+            <button id="nextBtn" onclick="changeSlide(1)" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 disabled:opacity-35 disabled:pointer-events-none text-xs sm:text-sm font-display font-bold text-slate-950 flex items-center gap-2 transition-all shadow-[0_0_20px_rgba(56,189,248,0.4)]">
+                <span>Siguiente</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </footer>
 
     <script>
+        // Exact 16-minute Script Data per Slide for Teleprompter
+        const slideScripts = [
+            // Slide 1
+            "MANEL: ¡Buenos días a todos! Hoy mi compañero Jose y yo os presentamos nuestro proyecto de PRL enfocado a lo que vivimos en el taller de automoción. | JOSE: Exacto, veremos desde la base legal y ergonomía hasta la alta tensión en híbridos y dos tests interactivos. ¡Vamos al lío!",
+            // Slide 2 (Jose)
+            "JOSE: En esta diapositiva 2 os muestro el índice general. Dividimos la charla en dos bloques: primero Manel os explicará la Ley 31/1995, los riesgos psicosociales del taller y cómo levantar cargas pesadas sin lesionarse; y en la segunda parte yo os explicaré los contactos eléctricos en alta tensión, las 5 reglas de oro con el candado LOTO, la inhalación de gases y el test final.",
+            // Slide 3 (Manel)
+            "MANEL: Entrando en materia en la diapositiva 3, toda la prevención en España se rige por la Ley 31/1995. Esta ley transpone una directiva europea y obliga al taller a evaluar cada elevador, foso y máquina antes de trabajar. Además, introduce responsabilidad civil y penal: ignorar la seguridad conlleva sanciones graves. El objetivo es anticiparse para lograr cero accidentes.",
+            // Slide 4 (Manel)
+            "MANEL: En la diapositiva 4 vemos los riesgos psicosociales. En electromecánica el estrés es muy real: presión por cumplir las horas del manual de tiempos, clientes impacientes y frustración diagnosticando averías electrónicas complejas. Todo esto lleva al síndrome de Burnout o trabajador quemado, que provoca despistes muy peligrosos con herramientas o elevadores.",
+            // Slide 5 (Manel)
+            "MANEL: En la diapositiva 5 tratamos la manipulación de cargas. En el taller movemos cajas de cambio, culatas o baterías que superan los 25 kg recomendados. Para proteger los discos lumbares, la regla biomecánica es: separar los pies, flexionar rodillas, espalda totalmente recta y pegar la carga al torso. Y para motores o transmisiones, usar siempre la pluma hidráulica.",
+            // Slide 6 (Manel)
+            "MANEL (Test 1 - Pregunta 1): Vamos con el primer test interactivo. ¿Cuál es la finalidad principal de la Ley 31/1995? Recordad que la opción más completa y técnica (la B) es la correcta.",
+            // Slide 7 (Manel)
+            "MANEL (Test 1 - Pregunta 2): Segunda pregunta: ¿Qué caracteriza al síndrome de Burnout laboral? La opción A, el agotamiento físico y mental crónico por estrés prolongado.",
+            // Slide 8 (Manel)
+            "MANEL (Test 1 - Pregunta 3): Tercera pregunta: ¿Cuál es la técnica correcta al levantar un objeto pesado del suelo? La opción C: flexionar rodillas, espalda recta y carga pegada al cuerpo.",
+            // Slide 9 (Manel)
+            "MANEL (Test 1 - Pregunta 4): Última de mi bloque: ¿Cuándo debe hacerse la evaluación inicial de riesgos? Opción B: antes de iniciar la actividad y cuando cambien las condiciones. ¡Te doy el relevo, Jose!",
+            // Slide 10 (Jose)
+            "JOSE: Tomo el relevo en la diapositiva 10 con el riesgo eléctrico. Con los coches híbridos y eléctricos ya no hablamos de 12V, sino de cableado naranja de alta tensión de 400V a 800V en corriente continua. Diferenciamos el contacto directo (tocar un cable activo o borne pelado) y el contacto indirecto (tocar el chasis del coche puesto en tensión por un fallo de aislamiento).",
+            // Slide 11 (Jose)
+            "JOSE: En la diapositiva 11 vemos las 5 Reglas de Oro en orden estricto: 1º Corte efectivo sacando el Service Plug o interruptor. 2º Bloqueo LOTO poniendo nuestro candado personal para que nadie reconecte la corriente mientras metemos mano. 3º Comprobar ausencia de tensión (0V) con multímetro CAT III. 4º Puesta a tierra y en cortocircuito. Y 5º Señalizar el box.",
+            // Slide 12 (Jose)
+            "JOSE: En la diapositiva 12 abordamos la inhalación de químicos (normativa COSHH): monóxido de carbono de los escapes, vapores de pintura y polvo de frenos. La jerarquía obliga a aplicar 1º la protección colectiva (conectar las mangueras de extracción localizada al tubo de escape) y 2º los EPIs individuales como mascarillas con filtros de carbón activo ABEK.",
+            // Slide 13 (Jose)
+            "JOSE (Test 2 - Pregunta 1): Arrancamos mi test. ¿Cómo se define un contacto eléctrico indirecto? La opción B: entrar en contacto con masas o partes metálicas puestas accidentalmente bajo tensión por fallo de aislamiento.",
+            // Slide 14 (Jose)
+            "JOSE (Test 2 - Pregunta 2): Segunda pregunta: ¿Cuál es el primer paso obligatorio de las 5 reglas de oro? Opción B: efectuar el corte visible o efectivo de todas las fuentes de tensión.",
+            // Slide 15 (Jose)
+            "JOSE (Test 2 - Pregunta 3): Tercera pregunta: Ante riesgo de inhalación tóxica, ¿qué medida se aplica primero? Opción A: implantar primero la protección colectiva como extracción localizada antes que los EPIs individuales.",
+            // Slide 16 (Jose)
+            "JOSE (Test 2 - Pregunta 4): Última pregunta: ¿Qué objetivo persigue el bloqueo LOTO? Opción B: impedir cualquier reconexión accidental o involuntaria mientras realizamos el mantenimiento.",
+            // Slide 17 (Cierre)
+            "JOSE Y MANEL: Para concluir en la diapositiva 17, recalcar que la PRL no es un trámite para aprobar el módulo, sino la herramienta que nos permite volver a casa sanos y salvos cada día desde el taller. De parte de Manel y mía... ¡Muchísimas gracias por vuestra atención!"
+        ];
+
         let currentSlide = 0;
+        let score = 0;
         const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        const progressBar = document.getElementById('progressBar');
+        const slideNum = document.getElementById('slideNum');
         const speakerBadge = document.getElementById('speakerBadge');
-        const slideCounter = document.getElementById('slideCounter');
+        const speakerName = document.getElementById('speakerName');
+        const speakerDot = document.getElementById('speakerDot');
+        const bracketTL = document.getElementById('bracketTL');
+        const bracketBR = document.getElementById('bracketBR');
+        const orb1 = document.getElementById('orb1');
+        const orb2 = document.getElementById('orb2');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
+        const slideDotsContainer = document.getElementById('slideDots');
+        const scriptText = document.getElementById('scriptText');
+        const teleprompterDrawer = document.getElementById('teleprompterDrawer');
 
-        function updatePresentation() {
+        // Build Slide Dots
+        slides.forEach((s, idx) => {
+            const dot = document.createElement('button');
+            dot.onclick = () => goToSlide(idx);
+            dot.className = 'w-2.5 h-2.5 rounded-full transition-all duration-300 bg-slate-700 hover:bg-slate-400';
+            dot.title = `Ir a Diapositiva ${idx + 1}`;
+            slideDotsContainer.appendChild(dot);
+        });
+
+        function updateUI() {
             slides.forEach((slide, index) => {
                 slide.classList.toggle('active', index === currentSlide);
             });
 
-            // Update Counter
-            slideCounter.textContent = `Diapositiva ${currentSlide + 1} de ${slides.length}`;
+            // Progress & Counter
+            const pct = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = `${pct}%`;
+            slideNum.textContent = String(currentSlide + 1).padStart(2, '0');
 
-            // Update Speaker Badge
-            const currentSpeaker = slides[currentSlide].getAttribute('data-speaker');
-            if (currentSpeaker === 'manel') {
-                speakerBadge.textContent = "Ponente: Manel Gran Lafuente";
-                speakerBadge.className = "speaker-badge badge-manel";
+            // Active Speaker Styling
+            const speaker = slides[currentSlide].getAttribute('data-speaker');
+            const label = slides[currentSlide].getAttribute('data-speaker-label');
+            speakerName.textContent = label;
+
+            if (speaker === 'manel') {
+                speakerBadge.className = 'flex items-center gap-2.5 px-4 py-2 rounded-full font-display text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 border-2 bg-sky-500/15 border-sky-400 text-sky-300 shadow-[0_0_20px_rgba(56,189,248,0.3)]';
+                speakerDot.className = 'w-2.5 h-2.5 rounded-full bg-sky-400 animate-ping';
+                bracketTL.style.borderColor = '#38bdf8';
+                bracketBR.style.borderColor = '#38bdf8';
+                orb1.className = 'ambient-orb w-96 h-96 bg-sky-500 -top-20 -left-20';
+                orb2.className = 'ambient-orb w-[28rem] h-[28rem] bg-blue-600 -bottom-28 -right-20';
+            } else if (speaker === 'jose') {
+                speakerBadge.className = 'flex items-center gap-2.5 px-4 py-2 rounded-full font-display text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 border-2 bg-rose-500/15 border-rose-500 text-rose-300 shadow-[0_0_20px_rgba(244,63,94,0.3)]';
+                speakerDot.className = 'w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping';
+                bracketTL.style.borderColor = '#f43f5e';
+                bracketBR.style.borderColor = '#f43f5e';
+                orb1.className = 'ambient-orb w-96 h-96 bg-rose-600 -top-20 -left-20';
+                orb2.className = 'ambient-orb w-[28rem] h-[28rem] bg-orange-600 -bottom-28 -right-20';
             } else {
-                speakerBadge.textContent = "Ponente: Jose Ferrández Moya";
-                speakerBadge.className = "speaker-badge badge-jose";
+                speakerBadge.className = 'flex items-center gap-2.5 px-4 py-2 rounded-full font-display text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 border-2 bg-purple-500/15 border-sky-400 text-white shadow-[0_0_20px_rgba(168,85,247,0.3)]';
+                speakerDot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping';
+                bracketTL.style.borderColor = '#38bdf8';
+                bracketBR.style.borderColor = '#f43f5e';
+                orb1.className = 'ambient-orb w-96 h-96 bg-sky-500 -top-20 -left-20';
+                orb2.className = 'ambient-orb w-[28rem] h-[28rem] bg-rose-600 -bottom-28 -right-20';
             }
 
-            // Update Buttons
+            // Update Dots
+            const dots = slideDotsContainer.children;
+            for (let i = 0; i < dots.length; i++) {
+                if (i === currentSlide) {
+                    dots[i].className = speaker === 'jose' 
+                        ? 'w-6 h-2.5 rounded-full transition-all duration-300 bg-rose-500 shadow-[0_0_8px_#f43f5e]'
+                        : 'w-6 h-2.5 rounded-full transition-all duration-300 bg-sky-400 shadow-[0_0_8px_#38bdf8]';
+                } else {
+                    dots[i].className = 'w-2.5 h-2.5 rounded-full transition-all duration-300 bg-slate-700 hover:bg-slate-400';
+                }
+            }
+
+            // Update Teleprompter Script
+            scriptText.textContent = slideScripts[currentSlide];
+
+            // Update Nav Buttons
             prevBtn.disabled = currentSlide === 0;
-            nextBtn.disabled = currentSlide === slides.length - 1;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
         }
 
-        function changeSlide(direction) {
-            currentSlide += direction;
-            if (currentSlide < 0) currentSlide = 0;
-            if (currentSlide >= slides.length) currentSlide = slides.length - 1;
-            updatePresentation();
+        function changeSlide(dir) {
+            const next = currentSlide + dir;
+            if (next >= 0 && next < totalSlides) {
+                currentSlide = next;
+                updateUI();
+            }
+        }
+
+        function goToSlide(idx) {
+            currentSlide = idx;
+            updateUI();
+        }
+
+        function answerQuiz(btn, isCorrect, feedbackMsg) {
+            const group = btn.closest('.quiz-group');
+            const allBtns = group.querySelectorAll('.quiz-option');
+            const feedbackEl = btn.closest('.slide').querySelector('.quiz-feedback');
+
+            allBtns.forEach(b => {
+                b.disabled = true;
+                if (b === btn) {
+                    b.classList.add(isCorrect ? 'correct' : 'incorrect');
+                } else if (!isCorrect && b.getAttribute('onclick').includes('true')) {
+                    b.classList.add('correct');
+                }
+            });
+
+            if (isCorrect) {
+                score++;
+                document.getElementById('scoreCounter').textContent = `${score} / 8`;
+                document.getElementById('finalScoreDisplay').textContent = `${score} / 8 ACIERTOS`;
+                feedbackEl.style.color = '#34d399';
+            } else {
+                feedbackEl.style.color = '#fb7185';
+            }
+            feedbackEl.textContent = feedbackMsg;
+        }
+
+        function toggleTeleprompter() {
+            teleprompterDrawer.classList.toggle('hidden');
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen();
+            }
         }
 
         // Keyboard Navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
                 changeSlide(1);
-            } else if (e.key === 'ArrowLeft' && currentSlide > 0) {
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
                 changeSlide(-1);
+            } else if (e.key.toLowerCase() === 'g') {
+                toggleTeleprompter();
+            } else if (e.key.toLowerCase() === 'f') {
+                toggleFullScreen();
             }
         });
 
-        // Quiz Logic
-        function checkAnswer(button, isCorrect, message) {
-            const container = button.closest('.quiz-container');
-            const buttons = container.querySelectorAll('.quiz-btn');
-            const feedback = container.querySelector('.quiz-feedback');
-
-            buttons.forEach(btn => {
-                btn.disabled = true;
-                if (btn === button) {
-                    btn.classList.add(isCorrect ? 'correct' : 'incorrect');
-                } else if (isCorrect === false && btn.getAttribute('onclick').includes('true')) {
-                    btn.classList.add('correct');
-                }
-            });
-
-            feedback.textContent = message;
-            feedback.style.color = isCorrect ? '#4ade80' : '#f87171';
-        }
-
-        // Initial setup
-        updatePresentation();
+        updateUI();
     </script>
 </body>
 </html>
