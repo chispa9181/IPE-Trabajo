@@ -181,11 +181,6 @@
             border-color: #ef4444 !important;
             opacity: 0.75;
         }
-
-        /* Teleprompter Bar */
-        #teleprompterDrawer {
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
     </style>
 </head>
 <body class="cyber-grid flex flex-col justify-between p-3 sm:p-5 md:p-6">
@@ -712,11 +707,13 @@
 
                 <!-- Right Column: Visual Image -->
                 <div class="lg:col-span-5">
-                    <div class="hud-card rounded-2xl p-3 border border-sky-400/30">
-                        <img src="https://hsiassetstorage.sfo2.digitaloceanspaces.com/assets/images/blog/Safe-Lifting-01.png" 
-                             onerror="this.src='https://placehold.co/600x400/0f172a/38bdf8?text=Ergonomia+de+Cargas+25kg'"
-                             alt="Ergonomía levantamiento de cargas" 
-                             class="w-full h-64 sm:h-72 object-cover rounded-xl">
+                    <div class="hud-card rounded-2xl p-3 border border-sky-400/30 bg-slate-950/80">
+                        <div class="w-full h-64 sm:h-72 flex items-center justify-center bg-slate-900/90 rounded-xl overflow-hidden p-2">
+                            <img src="https://hsiassetstorage.sfo2.digitaloceanspaces.com/assets/images/blog/Safe-Lifting-01.png" 
+                                 onerror="this.src='https://placehold.co/600x400/0f172a/38bdf8?text=Ergonomia+de+Cargas+25kg'"
+                                 alt="Ergonomía levantamiento de cargas" 
+                                 class="max-w-full max-h-full w-auto h-auto object-contain rounded-lg">
+                        </div>
                         <div class="flex items-center justify-between text-xs font-mono-tech text-sky-300 px-2 pt-2.5">
                             <span>BIOMECÁNICA LUMBAR CORRECTA</span>
                             <span>RD 487/1997</span>
@@ -969,11 +966,13 @@
 
                 <!-- Right Column: Image -->
                 <div class="lg:col-span-5">
-                    <div class="hud-card rounded-2xl p-3 border border-rose-500/40">
-                        <img src="https://locksafe.com.au/wp-content/uploads/2022/04/Understanding-the-Importance-of-LockoutTagout-Procedures.jpg" 
-                             onerror="this.src='https://placehold.co/600x400/111827/f43f5e?text=Seguridad+Electrica+y+LOTO'"
-                             alt="Seguridad eléctrica y bloqueo LOTO" 
-                             class="w-full h-64 sm:h-72 object-cover rounded-xl">
+                    <div class="hud-card rounded-2xl p-3 border border-rose-500/40 bg-slate-950/80">
+                        <div class="w-full h-64 sm:h-72 flex items-center justify-center bg-slate-900/90 rounded-xl overflow-hidden p-2">
+                            <img src="https://locksafe.com.au/wp-content/uploads/2022/04/Understanding-the-Importance-of-LockoutTagout-Procedures.jpg" 
+                                 onerror="this.src='https://placehold.co/600x400/111827/f43f5e?text=Seguridad+Electrica+y+LOTO'"
+                                 alt="Seguridad eléctrica y bloqueo LOTO" 
+                                 class="max-w-full max-h-full w-auto h-auto object-contain rounded-lg">
+                        </div>
                         <div class="flex items-center justify-between text-xs font-mono-tech text-rose-300 px-2 pt-2.5">
                             <span>AISLAMIENTO Y PROTECCIÓN ELÉCTRICA</span>
                             <span>RD 614/2001</span>
@@ -1137,11 +1136,13 @@
 
                 <!-- Right Column: Image -->
                 <div class="lg:col-span-5">
-                    <div class="hud-card rounded-2xl p-3 border border-rose-500/30">
-                        <img src="https://workplacesafe.co.uk/images/news/the-importance-of-coshh-in-motor-vehicle-repair-workshops.webp?rand=61267" 
-                             onerror="this.src='https://placehold.co/600x400/111827/38bdf8?text=Control+de+Quimicos+COSHH'"
-                             alt="Seguridad y manejo de químicos en taller" 
-                             class="w-full h-64 sm:h-72 object-cover rounded-xl">
+                    <div class="hud-card rounded-2xl p-3 border border-rose-500/30 bg-slate-950/80">
+                        <div class="w-full h-64 sm:h-72 flex items-center justify-center bg-slate-900/90 rounded-xl overflow-hidden p-2">
+                            <img src="https://workplacesafe.co.uk/images/news/the-importance-of-coshh-in-motor-vehicle-repair-workshops.webp?rand=61267" 
+                                 onerror="this.src='https://placehold.co/600x400/111827/38bdf8?text=Control+de+Quimicos+COSHH'"
+                                 alt="Seguridad y manejo de químicos en taller" 
+                                 class="max-w-full max-h-full w-auto h-auto object-contain rounded-lg">
+                        </div>
                         <div class="flex items-center justify-between text-xs font-mono-tech text-rose-300 px-2 pt-2.5">
                             <span>CONTROL QUÍMICO COSHH EN TALLER</span>
                             <span>PROTECCIÓN COLECTIVA &gt; EPI</span>
@@ -1394,29 +1395,13 @@
 
     </main>
 
-    <!-- FLOATING TELEPROMPTER / GUION DRAWER (TOGGLEABLE) -->
-    <div id="teleprompterDrawer" class="fixed bottom-20 left-1/2 -translate-x-1/2 max-w-5xl w-[92%] bg-slate-950/95 border-2 border-sky-400/60 rounded-2xl p-4 shadow-[0_20px_50px_rgba(0,0,0,0.9)] z-40 hidden backdrop-blur-xl">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-2">
-            <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span id="scriptSpeakerTitle" class="font-mono-tech text-xs font-bold uppercase tracking-wider text-sky-400">GUION EN VIVO (8 MIN/PERSONA)</span>
-            </div>
-            <button onclick="toggleTeleprompter()" class="text-xs font-mono-tech text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800">CERRAR [G]</button>
-        </div>
-        <p id="scriptText" class="text-slate-100 text-sm sm:text-base leading-relaxed font-medium"></p>
-    </div>
-
     <!-- BOTTOM NAVIGATION & CONTROLS BAR -->
     <footer class="relative z-20 max-w-7xl w-full mx-auto flex flex-wrap items-center justify-between gap-3 mt-3 px-1">
-        <!-- Left Controls: Teleprompter & Fullscreen -->
+        <!-- Left Controls: Fullscreen -->
         <div class="flex items-center gap-2.5">
-            <button id="teleprompterBtn" onclick="toggleTeleprompter()" class="px-3.5 py-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-xs sm:text-sm font-display font-semibold text-slate-200 flex items-center gap-2 transition-all shadow-lg">
-                <i class="fa-solid fa-scroll text-sky-400"></i>
-                <span>Modo Guion</span>
-            </button>
             <button onclick="toggleFullScreen()" class="px-3.5 py-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-xs sm:text-sm font-display font-semibold text-slate-200 flex items-center gap-2 transition-all shadow-lg" title="Pantalla Completa">
                 <i class="fa-solid fa-expand text-rose-400"></i>
-                <span class="hidden md:inline">Pantalla Completa</span>
+                <span>Pantalla Completa</span>
             </button>
         </div>
 
@@ -1437,44 +1422,6 @@
     </footer>
 
     <script>
-        // Exact 16-minute Script Data per Slide for Teleprompter
-        const slideScripts = [
-            // Slide 1
-            "MANEL: ¡Buenos días a todos! Hoy mi compañero Jose y yo os presentamos nuestro proyecto de PRL enfocado a lo que vivimos en el taller de automoción. | JOSE: Exacto, veremos desde la base legal y ergonomía hasta la alta tensión en híbridos y dos tests interactivos. ¡Vamos al lío!",
-            // Slide 2 (Jose)
-            "JOSE: En esta diapositiva 2 os muestro el índice general. Dividimos la charla en dos bloques: primero Manel os explicará la Ley 31/1995, los riesgos psicosociales del taller y cómo levantar cargas pesadas sin lesionarse; y en la segunda parte yo os explicaré los contactos eléctricos en alta tensión, las 5 reglas de oro con el candado LOTO, la inhalación de gases y el test final.",
-            // Slide 3 (Manel)
-            "MANEL: Entrando en materia en la diapositiva 3, toda la prevención en España se rige por la Ley 31/1995. Esta ley transpone una directiva europea y obliga al taller a evaluar cada elevador, foso y máquina antes de trabajar. Además, introduce responsabilidad civil y penal: ignorar la seguridad conlleva sanciones graves. El objetivo es anticiparse para lograr cero accidentes.",
-            // Slide 4 (Manel)
-            "MANEL: En la diapositiva 4 vemos los riesgos psicosociales. En electromecánica el estrés es muy real: presión por cumplir las horas del manual de tiempos, clientes impacientes y frustración diagnosticando averías electrónicas complejas. Todo esto lleva al síndrome de Burnout o trabajador quemado, que provoca despistes muy peligrosos con herramientas o elevadores.",
-            // Slide 5 (Manel)
-            "MANEL: En la diapositiva 5 tratamos la manipulación de cargas. En el taller movemos cajas de cambio, culatas o baterías que superan los 25 kg recomendados. Para proteger los discos lumbares, la regla biomecánica es: separar los pies, flexionar rodillas, espalda totalmente recta y pegar la carga al torso. Y para motores o transmisiones, usar siempre la pluma hidráulica.",
-            // Slide 6 (Manel)
-            "MANEL (Test 1 - Pregunta 1): Vamos con el primer test interactivo. ¿Cuál es la finalidad principal de la Ley 31/1995? Recordad que la opción más completa y técnica (la B) es la correcta.",
-            // Slide 7 (Manel)
-            "MANEL (Test 1 - Pregunta 2): Segunda pregunta: ¿Qué caracteriza al síndrome de Burnout laboral? La opción A, el agotamiento físico y mental crónico por estrés prolongado.",
-            // Slide 8 (Manel)
-            "MANEL (Test 1 - Pregunta 3): Tercera pregunta: ¿Cuál es la técnica correcta al levantar un objeto pesado del suelo? La opción C: flexionar rodillas, espalda recta y carga pegada al cuerpo.",
-            // Slide 9 (Manel)
-            "MANEL (Test 1 - Pregunta 4): Última de mi bloque: ¿Cuándo debe hacerse la evaluación inicial de riesgos? Opción B: antes de iniciar la actividad y cuando cambien las condiciones. ¡Te doy el relevo, Jose!",
-            // Slide 10 (Jose)
-            "JOSE: Tomo el relevo en la diapositiva 10 con el riesgo eléctrico. Con los coches híbridos y eléctricos ya no hablamos de 12V, sino de cableado naranja de alta tensión de 400V a 800V en corriente continua. Diferenciamos el contacto directo (tocar un cable activo o borne pelado) y el contacto indirecto (tocar el chasis del coche puesto en tensión por un fallo de aislamiento).",
-            // Slide 11 (Jose)
-            "JOSE: En la diapositiva 11 vemos las 5 Reglas de Oro en orden estricto: 1º Corte efectivo sacando el Service Plug o interruptor. 2º Bloqueo LOTO poniendo nuestro candado personal para que nadie reconecte la corriente mientras metemos mano. 3º Comprobar ausencia de tensión (0V) con multímetro CAT III. 4º Puesta a tierra y en cortocircuito. Y 5º Señalizar el box.",
-            // Slide 12 (Jose)
-            "JOSE: En la diapositiva 12 abordamos la inhalación de químicos (normativa COSHH): monóxido de carbono de los escapes, vapores de pintura y polvo de frenos. La jerarquía obliga a aplicar 1º la protección colectiva (conectar las mangueras de extracción localizada al tubo de escape) y 2º los EPIs individuales como mascarillas con filtros de carbón activo ABEK.",
-            // Slide 13 (Jose)
-            "JOSE (Test 2 - Pregunta 1): Arrancamos mi test. ¿Cómo se define un contacto eléctrico indirecto? La opción B: entrar en contacto con masas o partes metálicas puestas accidentalmente bajo tensión por fallo de aislamiento.",
-            // Slide 14 (Jose)
-            "JOSE (Test 2 - Pregunta 2): Segunda pregunta: ¿Cuál es el primer paso obligatorio de las 5 reglas de oro? Opción B: efectuar el corte visible o efectivo de todas las fuentes de tensión.",
-            // Slide 15 (Jose)
-            "JOSE (Test 2 - Pregunta 3): Tercera pregunta: Ante riesgo de inhalación tóxica, ¿qué medida se aplica primero? Opción A: implantar primero la protección colectiva como extracción localizada antes que los EPIs individuales.",
-            // Slide 16 (Jose)
-            "JOSE (Test 2 - Pregunta 4): Última pregunta: ¿Qué objetivo persigue el bloqueo LOTO? Opción B: impedir cualquier reconexión accidental o involuntaria mientras realizamos el mantenimiento.",
-            // Slide 17 (Cierre)
-            "JOSE Y MANEL: Para concluir en la diapositiva 17, recalcar que la PRL no es un trámite para aprobar el módulo, sino la herramienta que nos permite volver a casa sanos y salvos cada día desde el taller. De parte de Manel y mía... ¡Muchísimas gracias por vuestra atención!"
-        ];
-
         let currentSlide = 0;
         let score = 0;
         const slides = document.querySelectorAll('.slide');
@@ -1492,8 +1439,6 @@
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const slideDotsContainer = document.getElementById('slideDots');
-        const scriptText = document.getElementById('scriptText');
-        const teleprompterDrawer = document.getElementById('teleprompterDrawer');
 
         // Build Slide Dots
         slides.forEach((s, idx) => {
@@ -1554,9 +1499,6 @@
                 }
             }
 
-            // Update Teleprompter Script
-            scriptText.textContent = slideScripts[currentSlide];
-
             // Update Nav Buttons
             prevBtn.disabled = currentSlide === 0;
             nextBtn.disabled = currentSlide === totalSlides - 1;
@@ -1600,10 +1542,6 @@
             feedbackEl.textContent = feedbackMsg;
         }
 
-        function toggleTeleprompter() {
-            teleprompterDrawer.classList.toggle('hidden');
-        }
-
         function toggleFullScreen() {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().catch(() => {});
@@ -1620,8 +1558,6 @@
             } else if (e.key === 'ArrowLeft') {
                 e.preventDefault();
                 changeSlide(-1);
-            } else if (e.key.toLowerCase() === 'g') {
-                toggleTeleprompter();
             } else if (e.key.toLowerCase() === 'f') {
                 toggleFullScreen();
             }
